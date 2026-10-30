@@ -1,0 +1,26 @@
+<%- include('_top', { title: 'Sản phẩm' }) %>
+<div class="a-toolbar">
+  <h1>Sản phẩm</h1>
+  <a class="a-btn" href="/admin/products/new">+ Thêm sản phẩm</a>
+</div>
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead><tr><th>#</th><th>Tên</th><th>Dòng</th><th>Giá</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>
+      <% products.forEach((p) => { %>
+      <tr>
+        <td><%= p.order %></td>
+        <td><span class="a-dot" style="background: <%= p.accent %>"></span><strong><%= p.name %></strong><% if (p.featured) { %> <span class="a-tag">Nổi bật</span><% } %><br><small>/<%= p.slug %></small></td>
+        <td><%= p.series %></td>
+        <td><%= money(p.price) %></td>
+        <td><span class="a-status a-status--<%= p.status === 'draft' ? 'cancelled' : 'done' %>"><%= p.status === 'draft' ? 'Nháp' : 'Hiển thị' %></span></td>
+        <td class="a-row-actions">
+          <a class="a-btn a-btn--sm a-btn--ghost" href="/admin/products/<%= p.id %>">Sửa</a>
+          <a class="a-btn a-btn--sm a-btn--ghost" href="/vi/collection/<%= p.slug %>" target="_blank" rel="noopener">Xem ↗</a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('_bottom') %>

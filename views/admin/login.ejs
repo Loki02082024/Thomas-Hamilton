@@ -1,0 +1,14 @@
+<%- include('_top', { title: 'Đăng nhập' }) %>
+<div class="a-login">
+  <form class="a-card a-form" method="post" action="/admin/login">
+    <div class="a-brand" style="text-align:center">THOMAS HAMILTON <small>Admin</small></div>
+    <% if (error) { %><p class="a-alert" role="alert"><%= error %></p><% } %>
+    <% if (!configured) { %>
+    <p class="a-note">Chưa có mật khẩu admin. Chạy <code>npm run hash-password -- "MatKhauCuaBan"</code> rồi đặt <code>ADMIN_PASSWORD_HASH</code> trong file <code>.env</code>.</p>
+    <% } %>
+    <label>Tên đăng nhập <input name="username" autocomplete="username" required></label>
+    <label>Mật khẩu <input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="a-btn" type="submit">Đăng nhập</button>
+  </form>
+</div>
+<%- include('_bottom') %>

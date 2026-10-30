@@ -1,0 +1,40 @@
+<%
+const groups = Object.keys(t.faq.categories).map((key) => ({ key, items: faqs.filter((f) => f.category === key) })).filter((g) => g.items.length);
+locals.jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: tr(f.q), acceptedAnswer: { '@type': 'Answer', text: tr(f.a) } })),
+};
+%>
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.faq.eyebrow, title: t.faq.title, intro: t.faq.intro, crumbs: [{ label: 'FAQ' }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container split">
+    <nav class="chips" aria-label="FAQ" style="align-content:start">
+      <% groups.forEach((g) => { %><a class="chip" href="#faq-<%= g.key %>"><%= t.faq.categories[g.key] %></a><% }) %>
+    </nav>
+    <div>
+      <% groups.forEach((g) => { %>
+      <div class="faq-group" id="faq-<%= g.key %>">
+        <h2 class="h4 gold"><%= t.faq.categories[g.key] %></h2>
+        <div class="faq">
+          <% g.items.forEach((f) => { %>
+          <details>
+            <summary><%= tr(f.q) %></summary>
+            <div><p><%= tr(f.a) %></p></div>
+          </details>
+          <% }) %>
+        </div>
+      </div>
+      <% }) %>
+
+      <div class="cta-band" style="margin-top:4rem">
+        <div class="cta-band__copy"><h2 class="h3"><%= t.faq.stillTitle %></h2><p class="muted"><%= t.contact.intro %></p></div>
+        <a class="btn btn--gold" href="<%= url('/contact') %>"><%= t.contact.eyebrow %></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

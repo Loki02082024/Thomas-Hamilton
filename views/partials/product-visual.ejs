@@ -1,0 +1,5 @@
+<% if (product.image) { %>
+<img src="<%= product.image %>" alt="<%= product.name %>" loading="<%= locals.eager ? 'eager' : 'lazy' %>" decoding="async" width="1200" height="900">
+<% } else { %>
+<%- include('chair', { uid: (locals.uid || '') + product.slug, accent: locals.accent || product.accent, leather: locals.leather, label: product.name, cls: locals.cls }) %>
+<% } %>

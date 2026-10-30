@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title><%= locals.title ? title + ' — ' : '' %>Admin · THOMAS HAMILTON</title>
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Montserrat:wght@400;500;600&display=swap&subset=vietnamese">
+  <link rel="stylesheet" href="/css/admin.css?v=1">
+</head>
+<body>
+<% if (admin) { %>
+<header class="a-header">
+  <a class="a-brand" href="/admin">THOMAS HAMILTON <small>Admin</small></a>
+  <nav class="a-nav" aria-label="Admin">
+    <a href="/admin"<%= current === '/' ? ' aria-current=page' : '' %>>Lịch đặt</a>
+    <a href="/admin/messages"<%= current.startsWith('/messages') ? ' aria-current=page' : '' %>>Tin nhắn</a>
+    <a href="/admin/products"<%= current.startsWith('/products') ? ' aria-current=page' : '' %>>Sản phẩm</a>
+    <a href="/admin/posts"<%= current.startsWith('/posts') ? ' aria-current=page' : '' %>>Bài viết</a>
+  </nav>
+  <div class="a-actions">
+    <a href="/vi" target="_blank" rel="noopener">Xem website ↗</a>
+    <form action="/admin/logout" method="post"><button class="a-btn a-btn--ghost" type="submit">Đăng xuất</button></form>
+  </div>
+</header>
+<% } %>
+<main class="a-main">

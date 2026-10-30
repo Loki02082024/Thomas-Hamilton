@@ -1,0 +1,202 @@
+<%- include('../partials/head') %>
+<% const hero = featured[0] || products[0]; %>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow reveal"><%= t.home.heroEyebrow %></span>
+      <h1 class="display reveal-line" style="--d:1"><%- t.home.heroTitle %></h1>
+      <p class="lead reveal" style="--d:3"><%= t.home.heroText %></p>
+      <div class="hero__actions reveal" style="--d:4">
+        <a class="btn btn--gold" href="<%= url('/collection') %>"><%= t.home.heroCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+        <a class="btn" href="<%= url('/book') %>"><%= t.home.heroCta2 %></a>
+      </div>
+    </div>
+    <% if (hero) { %>
+    <div class="hero__visual reveal" style="--d:2">
+      <div class="hero__ring" aria-hidden="true"></div>
+      <%- include('../partials/product-visual', { product: hero, uid: 'hero', cls: 'chair--float', eager: true }) %>
+      <a class="hero__caption" href="<%= url('/collection/' + hero.slug) %>">
+        <%= t.common.series %> <%= hero.series %>
+        <strong><%= hero.name %></strong>
+      </a>
+    </div>
+    <% } %>
+  </div>
+  <span class="hero__scroll" aria-hidden="true"><%= t.home.scroll %></span>
+</section>
+
+<!-- ========== STATS ========== -->
+<section aria-label="<%= lang === 'vi' ? 'Con số nổi bật' : 'Key figures' %>">
+  <div class="container">
+    <div class="stats">
+      <% t.home.stats.forEach((s, i) => { %>
+      <div class="stat reveal" style="--d:<%= i %>">
+        <span class="stat__value" data-count="<%= s.value %>"><%= s.value %></span>
+        <span class="stat__label"><%= s.label %></span>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHAPTER I ========== -->
+<section class="section">
+  <div class="container chapter">
+    <div class="chapter__visual reveal" aria-hidden="true">
+      <svg viewBox="0 0 400 440" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="c1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a96e" stop-opacity=".0"/><stop offset="1" stop-color="#c9a96e" stop-opacity=".5"/></linearGradient>
+        </defs>
+        <% for (let i = 0; i < 22; i++) { const x = 20 + i * 17; const h = 80 + ((i * 53) % 170); %>
+        <rect x="<%= x %>" y="<%= 440 - h %>" width="10" height="<%= h %>" fill="url(#c1g)" opacity="<%= (0.25 + (i % 5) * 0.12).toFixed(2) %>"/>
+        <% for (let w = 0; w < h / 18; w++) { if ((i + w) % 3 === 0) { %><rect x="<%= x + 3 %>" y="<%= 440 - h + 10 + w * 18 %>" width="4" height="4" fill="#e5cd9a" opacity=".55"/><% } } %>
+        <% } %>
+        <circle cx="300" cy="90" r="38" fill="none" stroke="#c9a96e" stroke-opacity=".5"/>
+        <circle cx="300" cy="90" r="28" fill="#c9a96e" opacity=".12"/>
+      </svg>
+      <span class="chapter__tag">22:47 — <%= lang === 'vi' ? 'Sài Gòn' : 'Saigon' %></span>
+    </div>
+    <div class="chapter__copy">
+      <span class="chapter__num" aria-hidden="true">I</span>
+      <span class="eyebrow reveal"><%= t.home.ch1Eyebrow %></span>
+      <h2 class="h2 reveal" style="--d:1"><%= t.home.ch1Title %></h2>
+      <p class="lead reveal" style="--d:2"><%= t.home.ch1Text %></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHAPTER II ========== -->
+<section class="section section--alt">
+  <div class="container chapter chapter--reverse">
+    <div class="chapter__visual reveal" aria-hidden="true">
+      <div class="leather"><div class="leather__panel"></div></div>
+      <span class="chapter__tag">Nappa · Tuscany · 6 / cm</span>
+    </div>
+    <div class="chapter__copy">
+      <span class="chapter__num" aria-hidden="true">II</span>
+      <span class="eyebrow reveal"><%= t.home.ch2Eyebrow %></span>
+      <h2 class="h2 reveal" style="--d:1"><%= t.home.ch2Title %></h2>
+      <p class="lead reveal" style="--d:2"><%= t.home.ch2Text %></p>
+      <a class="link-arrow reveal" style="--d:3" href="<%= url('/story') %>"><%= t.nav.story %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHAPTER III ========== -->
+<section class="section">
+  <div class="container chapter">
+    <div class="chapter__visual reveal" aria-hidden="true">
+      <svg viewBox="0 0 400 440">
+        <% for (let v = 0; v < 17; v++) { const y = 60 + v * 20; const w = 34 - Math.abs(v - 8) * 1.4; %>
+        <rect x="<%= 200 - w / 2 %>" y="<%= y %>" width="<%= w %>" height="14" rx="5" fill="none" stroke="#c9a96e" stroke-opacity=".45"/>
+        <% } %>
+        <g class="roller"><circle cx="160" cy="90" r="16" fill="#c9a96e" opacity=".2"/><circle cx="160" cy="90" r="9" fill="#e5cd9a"/><circle cx="240" cy="90" r="16" fill="#c9a96e" opacity=".2"/><circle cx="240" cy="90" r="9" fill="#e5cd9a"/></g>
+        <g class="roller roller--b"><circle cx="160" cy="150" r="14" fill="none" stroke="#e5cd9a" stroke-opacity=".6"/><circle cx="240" cy="150" r="14" fill="none" stroke="#e5cd9a" stroke-opacity=".6"/></g>
+        <circle class="pulse" cx="200" cy="230" r="70" fill="none" stroke="#c9a96e" stroke-opacity=".35"/>
+        <circle class="pulse" cx="200" cy="230" r="110" fill="none" stroke="#c9a96e" stroke-opacity=".18" style="animation-delay:-1.5s"/>
+      </svg>
+      <span class="chapter__tag">4D · 1,200 pts · 0.1 mm</span>
+    </div>
+    <div class="chapter__copy">
+      <span class="chapter__num" aria-hidden="true">III</span>
+      <span class="eyebrow reveal"><%= t.home.ch3Eyebrow %></span>
+      <h2 class="h2 reveal" style="--d:1"><%= t.home.ch3Title %></h2>
+      <p class="lead reveal" style="--d:2"><%= t.home.ch3Text %></p>
+      <a class="link-arrow reveal" style="--d:3" href="<%= url('/technology') %>"><%= t.nav.technology %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COLLECTION ========== -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:1.25rem">
+        <span class="eyebrow reveal"><%= t.home.collectionEyebrow %></span>
+        <h2 class="h2 reveal" style="--d:1"><%= t.home.collectionTitle %></h2>
+      </div>
+      <p class="lead reveal" style="--d:2"><%= t.home.collectionText %></p>
+    </div>
+    <div class="grid grid--3">
+      <% featured.forEach((p, i) => { %><%- include('../partials/product-card', { p, i }) %><% }) %>
+    </div>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:3.5rem">
+      <a class="btn" href="<%= url('/collection') %>"><%= t.common.allModels %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+      <a class="btn" href="<%= url('/compare') %>"><%= t.collection.compareCta %></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TECHNOLOGY ========== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow reveal"><%= t.home.techEyebrow %></span>
+      <h2 class="h2 reveal" style="--d:1"><%= t.home.techTitle %></h2>
+    </div>
+    <div class="tech-grid">
+      <% t.tech.items.forEach((it, i) => { %>
+      <div class="tech-item reveal" style="--d:<%= i % 3 %>">
+        <span class="tech-item__num">0<%= i + 1 %></span>
+        <%- include('../partials/icon', { name: it.key, cls: 'tech-item__icon' }) %>
+        <h3 class="h3"><%= it.title %></h3>
+        <p><%= it.text %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow eyebrow--plain reveal"><%= t.home.testimonialsEyebrow %></span>
+    </div>
+    <div class="quotes">
+      <% t.home.testimonials.forEach((q, i) => { %>
+      <figure class="quote reveal" style="--d:<%= i %>">
+        <blockquote><%= q.quote %></blockquote>
+        <figcaption><strong><%= q.name %></strong><span><%= q.role %></span></figcaption>
+      </figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ========== JOURNAL ========== -->
+<% if (posts.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="toolbar">
+      <div style="display:grid;gap:1.25rem">
+        <span class="eyebrow reveal"><%= t.home.journalEyebrow %></span>
+        <h2 class="h2 reveal" style="--d:1"><%= t.home.journalTitle %></h2>
+      </div>
+      <a class="link-arrow" href="<%= url('/journal') %>"><%= t.nav.journal %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+    <div class="grid grid--3">
+      <% posts.forEach((post, i) => { %><%- include('../partials/post-card', { post, i }) %><% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ========== CTA ========== -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div class="cta-band__copy">
+        <span class="eyebrow"><%= t.home.ctaEyebrow %></span>
+        <h2 class="h2"><%= t.home.ctaTitle %></h2>
+        <p class="lead"><%= t.home.ctaText %></p>
+      </div>
+      <a class="btn btn--gold" href="<%= url('/book') %>"><%= t.home.ctaButton %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

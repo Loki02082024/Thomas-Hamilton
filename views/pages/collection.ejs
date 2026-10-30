@@ -1,0 +1,26 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.collection.eyebrow, title: t.collection.title, intro: t.collection.intro, crumbs: [{ label: t.nav.collection }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="toolbar">
+      <nav class="chips" aria-label="<%= t.common.series %>">
+        <a class="chip" href="<%= url('/collection') %>" aria-current="<%= !active %>"><%= t.collection.all %></a>
+        <% series.forEach((s) => { %>
+        <a class="chip" href="<%= url('/collection') %>?series=<%= encodeURIComponent(s) %>" aria-current="<%= active === s %>"><%= s %></a>
+        <% }) %>
+      </nav>
+      <a class="link-arrow" href="<%= url('/compare') %>"><%= t.collection.compareCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+
+    <% if (products.length) { %>
+    <div class="grid grid--3">
+      <% products.forEach((p, i) => { %><%- include('../partials/product-card', { p, i: i % 3 }) %><% }) %>
+    </div>
+    <% } else { %>
+    <p class="muted"><%= t.collection.empty %></p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

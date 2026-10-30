@@ -1,0 +1,53 @@
+<%- include('_top', { title: post && post.id ? 'Sửa bài viết' : 'Viết bài mới' }) %>
+<%
+const p = post || { status: 'published', readMinutes: 4 };
+const v = (obj, l) => (obj && obj[l]) || '';
+const action = p.id ? '/admin/posts/' + p.id : '/admin/posts';
+%>
+<div class="a-toolbar">
+  <h1><%= p.id ? 'Sửa bài viết' : 'Viết bài mới' %></h1>
+  <a href="/admin/posts">← Danh sách</a>
+</div>
+<% if (error) { %><p class="a-alert" role="alert"><%= error %></p><% } %>
+
+<form class="a-form a-card" method="post" action="<%= action %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <fieldset>
+    <legend>Thiết lập</legend>
+    <div class="a-grid a-grid--3">
+      <label>Slug (URL) <input name="slug" value="<%= p.slug || '' %>" placeholder="tự tạo từ tiêu đề"></label>
+      <label>Ngày đăng <input name="date" type="date" value="<%= p.date || '' %>"></label>
+      <label>Thời gian đọc (phút) <input name="readMinutes" type="number" min="1" value="<%= p.readMinutes || 4 %>"></label>
+      <label>Thứ tự <input name="order" type="number" value="<%= p.order || 0 %>"></label>
+      <label>Trạng thái
+        <select name="status"><option value="published"<%= p.status !== 'draft' ? ' selected' : '' %>>Đã đăng</option><option value="draft"<%= p.status === 'draft' ? ' selected' : '' %>>Nháp</option></select>
+      </label>
+      <label>Ảnh bìa (URL) <input name="image" value="<%= p.image || '' %>"></label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Nội dung</legend>
+    <div class="a-grid a-grid--2">
+      <label>Chuyên mục (VI) <input name="category_vi" value="<%= v(p.category, 'vi') %>"></label>
+      <label>Category (EN) <input name="category_en" value="<%= v(p.category, 'en') %>"></label>
+      <label>Tiêu đề (VI) * <input name="title_vi" required value="<%= v(p.title, 'vi') %>"></label>
+      <label>Title (EN) <input name="title_en" value="<%= v(p.title, 'en') %>"></label>
+      <label>Mô tả ngắn (VI) <textarea name="excerpt_vi" rows="3"><%= v(p.excerpt, 'vi') %></textarea></label>
+      <label>Excerpt (EN) <textarea name="excerpt_en" rows="3"><%= v(p.excerpt, 'en') %></textarea></label>
+      <label>Nội dung (VI) — dòng bắt đầu bằng "## " là tiêu đề, cách đoạn bằng 1 dòng trống <textarea name="body_vi" rows="16"><%= v(p.body, 'vi') %></textarea></label>
+      <label>Body (EN) <textarea name="body_en" rows="16"><%= v(p.body, 'en') %></textarea></label>
+    </div>
+  </fieldset>
+  <div class="a-form-actions">
+    <button class="a-btn" type="submit">Lưu bài viết</button>
+    <a class="a-btn a-btn--ghost" href="/admin/posts">Huỷ</a>
+  </div>
+</form>
+
+<% if (p.id) { %>
+<form method="post" action="/admin/posts/<%= p.id %>/delete" data-confirm="Xoá vĩnh viễn bài viết này?" class="a-danger-zone">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <button class="a-btn a-btn--danger" type="submit">Xoá bài viết</button>
+</form>
+<% } %>
+<%- include('_bottom') %>

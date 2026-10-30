@@ -1,0 +1,108 @@
+<%- include('../partials/head') %>
+<%
+const B = t.booking;
+const err = (k) => errors[k] ? ' has-error' : '';
+const inv = (k) => errors[k] ? 'aria-invalid="true"' : '';
+%>
+<%- include('../partials/page-hero', { eyebrow: B.eyebrow, title: B.title, intro: B.intro, crumbs: [{ label: B.eyebrow }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container split">
+    <div style="display:grid;gap:2rem">
+      <ol class="steps">
+        <% B.steps.forEach((s) => { %><li><%= s %></li><% }) %>
+      </ol>
+      <ul class="info-list">
+        <li><%- include('../partials/icon', { name: 'phone' }) %><a href="<%= site.hotlineHref %>">Hotline <strong class="gold"><%= site.hotline %></strong></a></li>
+        <li><%- include('../partials/icon', { name: 'chat' }) %><a href="<%= site.zalo %>" target="_blank" rel="noopener"><%= t.common.chatZalo %></a></li>
+        <li><%- include('../partials/icon', { name: 'clock' }) %><span><%= tr(site.hours) %></span></li>
+      </ul>
+    </div>
+
+    <div class="form-panel">
+      <div class="form-success" id="book-success" <%= sent ? '' : 'hidden' %> role="status">
+        <%- include('../partials/icon', { name: 'check' }) %>
+        <h2 class="h2"><%= B.successTitle %></h2>
+        <p class="lead"><%= B.successText %></p>
+        <a class="btn" href="<%= url('/collection') %>"><%= t.home.heroCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+      </div>
+
+      <form class="form" action="<%= url('/book') %>" method="post" novalidate data-ajax data-success="#book-success" <%= sent ? 'hidden' : '' %>>
+        <input type="hidden" name="_token" value="<%= formToken %>">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <p class="form-status form-status--error" data-form-status hidden role="alert"><%= B.error %> <a href="<%= site.hotlineHref %>"><%= site.hotline %></a></p>
+
+        <div class="form-row form-row--2">
+          <div class="field<%= err('name') %>" data-field="name">
+            <label for="b-name"><%= B.name %><span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="b-name" name="name" type="text" autocomplete="name" required maxlength="80" value="<%= values.name || '' %>" aria-describedby="err-name" <%- inv('name') %>>
+            <%- include('../partials/field-error', { name: 'name', errors }) %>
+          </div>
+          <div class="field<%= err('phone') %>" data-field="phone">
+            <label for="b-phone"><%= B.phone %><span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="b-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="0901 234 567" value="<%= values.phone || '' %>" aria-describedby="err-phone" <%- inv('phone') %>>
+            <%- include('../partials/field-error', { name: 'phone', errors }) %>
+          </div>
+        </div>
+
+        <div class="field<%= err('email') %>" data-field="email">
+          <label for="b-email"><%= B.email %><span class="opt">(<%= t.common.optional %>)</span></label>
+          <input class="input" id="b-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" value="<%= values.email || '' %>" aria-describedby="err-email" <%- inv('email') %>>
+          <%- include('../partials/field-error', { name: 'email', errors }) %>
+        </div>
+
+        <div class="form-row form-row--2">
+          <div class="field<%= err('showroom') %>" data-field="showroom">
+            <label for="b-showroom"><%= B.showroom %><span class="req" aria-hidden="true">*</span></label>
+            <select class="select" id="b-showroom" name="showroom" required aria-describedby="err-showroom" <%- inv('showroom') %>>
+              <option value=""><%= lang === 'vi' ? 'Chọn showroom' : 'Choose a showroom' %></option>
+              <% showrooms.forEach((s) => { %><option value="<%= s.id %>"<%= values.showroom === s.id ? ' selected' : '' %>><%= tr(s.name) %> — <%= tr(s.city) %></option><% }) %>
+            </select>
+            <%- include('../partials/field-error', { name: 'showroom', errors }) %>
+          </div>
+          <div class="field" data-field="product">
+            <label for="b-product"><%= B.product %></label>
+            <select class="select" id="b-product" name="product">
+              <option value=""><%= B.anyProduct %></option>
+              <% products.forEach((p) => { %><option value="<%= p.slug %>"<%= values.product === p.slug ? ' selected' : '' %>><%= p.name %></option><% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div class="field<%= err('date') %>" data-field="date">
+          <label for="b-date"><%= B.date %><span class="req" aria-hidden="true">*</span></label>
+          <input class="input" id="b-date" name="date" type="date" required min="<%= minDate %>" value="<%= values.date || '' %>" aria-describedby="err-date" <%- inv('date') %>>
+          <%- include('../partials/field-error', { name: 'date', errors }) %>
+        </div>
+
+        <div class="field<%= err('time') %>" data-field="time">
+          <fieldset class="time-slots" aria-describedby="err-time">
+            <legend class="legend"><%= B.time %><span class="req" aria-hidden="true">*</span></legend>
+            <% B.times.forEach((slot, i) => { %>
+            <label class="slot"><input type="radio" name="time" value="<%= slot %>"<%= values.time === slot ? ' checked' : '' %>><span><%= slot %></span></label>
+            <% }) %>
+          </fieldset>
+          <%- include('../partials/field-error', { name: 'time', errors }) %>
+        </div>
+
+        <div class="field" data-field="note">
+          <label for="b-note"><%= B.note %><span class="opt">(<%= t.common.optional %>)</span></label>
+          <textarea class="textarea" id="b-note" name="note" maxlength="1000" placeholder="<%= B.notePlaceholder %>"><%= values.note || '' %></textarea>
+        </div>
+
+        <div class="field<%= err('consent') %>" data-field="consent">
+          <label class="checkbox" style="text-transform:none;letter-spacing:0;font-weight:400;font-size:.9rem">
+            <input type="checkbox" name="consent"<%= values.consent ? ' checked' : '' %> aria-describedby="err-consent">
+            <span><%= B.consent %></span>
+          </label>
+          <%- include('../partials/field-error', { name: 'consent', errors }) %>
+        </div>
+
+        <button class="btn btn--gold btn--block" type="submit" data-sending="<%= B.sending %>"><%= B.submit %> <%- include('../partials/icon', { name: 'arrow' }) %></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

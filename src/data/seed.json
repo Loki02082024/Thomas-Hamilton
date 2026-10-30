@@ -1,0 +1,388 @@
+{
+  "products": [
+    {
+      "id": "p-sovereign-x9",
+      "slug": "sovereign-x9",
+      "order": 1,
+      "status": "published",
+      "featured": true,
+      "name": "Sovereign X9",
+      "series": "Signature",
+      "price": 289000000,
+      "accent": "#C9A96E",
+      "badge": { "vi": "Flagship", "en": "Flagship" },
+      "tagline": { "vi": "Đỉnh cao của nghệ thuật thư giãn", "en": "The summit of restorative craft" },
+      "summary": {
+        "vi": "Robot massage 4D thế hệ mới với AI Body Scan 3.0, ray SL-Track 145 cm và da Nappa Ý khâu tay.",
+        "en": "Next-generation 4D robotic massage with AI Body Scan 3.0, a 145 cm SL-Track and hand-stitched Italian Nappa leather."
+      },
+      "description": {
+        "vi": "Sovereign X9 là tuyệt tác của xưởng chế tác Thomas Hamilton. Bộ đôi con lăn 4D độc lập mô phỏng chính xác đôi tay của chuyên gia trị liệu, điều chỉnh lực, tốc độ và độ sâu theo từng đốt sống. Hệ thống AI Body Scan 3.0 đọc 1.200 điểm dữ liệu trong 30 giây để tạo bản đồ cơ thể riêng cho bạn.\n\nKhung ghế bằng hợp kim nhôm hàng không, bọc da Nappa nhập khẩu từ Tuscany, được khâu tay bởi nghệ nhân trong 36 giờ. Chế độ Zero Gravity hai cấp nâng chân cao hơn tim, giải phóng hoàn toàn áp lực lên cột sống.",
+        "en": "The Sovereign X9 is the masterpiece of the Thomas Hamilton atelier. Twin independent 4D rollers replicate the hands of a master therapist, adapting pressure, speed and depth vertebra by vertebra. AI Body Scan 3.0 reads 1,200 data points in 30 seconds to map a profile that is uniquely yours.\n\nIts aerospace-grade aluminium frame is wrapped in Nappa leather from Tuscany, hand-stitched by artisans over 36 hours. Two-stage Zero Gravity raises your legs above your heart, releasing every trace of pressure from the spine."
+      },
+      "highlights": [
+        { "vi": "Con lăn 4D kép độc lập", "en": "Twin independent 4D rollers" },
+        { "vi": "AI Body Scan 3.0 — 1.200 điểm", "en": "AI Body Scan 3.0 — 1,200 points" },
+        { "vi": "Da Nappa Ý khâu tay", "en": "Hand-stitched Italian Nappa" },
+        { "vi": "Âm thanh vòm Bang & Olufsen-grade", "en": "Audiophile-grade surround sound" }
+      ],
+      "specs": {
+        "programs": "42",
+        "rollers": "4D Dual",
+        "track": "SL-Track 145 cm",
+        "zeroGravity": { "vi": "2 cấp", "en": "2-stage" },
+        "airbags": "64",
+        "heat": { "vi": "Lưng, eo, bắp chân", "en": "Back, waist, calves" },
+        "dimensions": "165 × 82 × 122 cm",
+        "weight": "138 kg",
+        "power": "220V · 250W",
+        "warranty": { "vi": "10 năm", "en": "10 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Đen Onyx", "en": "Onyx Black" }, "hex": "#141312" },
+        { "name": { "vi": "Nâu Cognac", "en": "Cognac" }, "hex": "#7A4A2A" },
+        { "name": { "vi": "Kem Ivory", "en": "Ivory" }, "hex": "#E9E1D3" }
+      ]
+    },
+    {
+      "id": "p-monarch-zero",
+      "slug": "monarch-zero",
+      "order": 2,
+      "status": "published",
+      "featured": true,
+      "name": "Monarch Zero",
+      "series": "Signature",
+      "price": 218000000,
+      "accent": "#B8B2A7",
+      "badge": { "vi": "Mới", "en": "New" },
+      "tagline": { "vi": "Không trọng lực. Không giới hạn.", "en": "Weightless. Limitless." },
+      "summary": {
+        "vi": "Thiết kế không gian lơ lửng với Zero Gravity 3 cấp và liệu pháp nhiệt đá Jade.",
+        "en": "A floating silhouette with three-stage Zero Gravity and Jade stone heat therapy."
+      },
+      "description": {
+        "vi": "Monarch Zero lấy cảm hứng từ tư thế của phi hành gia khi rời bệ phóng. Ba cấp Zero Gravity phân bổ trọng lượng cơ thể đều trên toàn bộ mặt ghế, cho cảm giác như đang lơ lửng.\n\nHai mươi bốn viên đá Jade tự nhiên được làm ấm đến 45°C truyền nhiệt sâu vào cơ lưng, kết hợp con lăn 3D để thư giãn và cải thiện tuần hoàn.",
+        "en": "Monarch Zero takes its cue from an astronaut's posture at lift-off. Three stages of Zero Gravity distribute your weight evenly across the seat for a sensation of pure suspension.\n\nTwenty-four natural Jade stones, warmed to 45°C, carry heat deep into the back muscles while 3D rollers release tension and restore circulation."
+      },
+      "highlights": [
+        { "vi": "Zero Gravity 3 cấp", "en": "Three-stage Zero Gravity" },
+        { "vi": "Nhiệt đá Jade tự nhiên", "en": "Natural Jade stone heat" },
+        { "vi": "Tiết kiệm không gian 5 cm", "en": "5 cm wall-hugger design" }
+      ],
+      "specs": {
+        "programs": "36",
+        "rollers": "3D",
+        "track": "SL-Track 138 cm",
+        "zeroGravity": { "vi": "3 cấp", "en": "3-stage" },
+        "airbags": "52",
+        "heat": { "vi": "Đá Jade lưng, bắp chân", "en": "Jade stone back, calves" },
+        "dimensions": "158 × 78 × 118 cm",
+        "weight": "115 kg",
+        "power": "220V · 220W",
+        "warranty": { "vi": "8 năm", "en": "8 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Xám Graphite", "en": "Graphite" }, "hex": "#3A3836" },
+        { "name": { "vi": "Be Sa thạch", "en": "Sandstone" }, "hex": "#C8B79E" }
+      ]
+    },
+    {
+      "id": "p-regent-7",
+      "slug": "regent-7",
+      "order": 3,
+      "status": "published",
+      "featured": true,
+      "name": "Regent 7",
+      "series": "Heritage",
+      "price": 159000000,
+      "accent": "#8C6A4F",
+      "badge": { "vi": "Bán chạy", "en": "Best seller" },
+      "tagline": { "vi": "Di sản cổ điển, tâm hồn hiện đại", "en": "Classic heritage, modern soul" },
+      "summary": {
+        "vi": "Thiết kế Anh quốc cổ điển với lõi công nghệ 3D, massage chân Shiatsu và điều khiển giọng nói.",
+        "en": "Classic British lines around a 3D core, Shiatsu foot rollers and voice control."
+      },
+      "description": {
+        "vi": "Regent 7 mang dáng dấp của chiếc ghế bành trong thư viện quý tộc Anh, nhưng ẩn bên trong là cỗ máy trị liệu tinh vi. Con lăn 3D với 6 cấp độ sâu, hệ thống con lăn chân Shiatsu ba hàng và điều khiển giọng nói song ngữ.\n\nLựa chọn hoàn hảo cho phòng khách — sang trọng khi ngồi, đẳng cấp khi trị liệu.",
+        "en": "Regent 7 carries the silhouette of a library armchair from an English manor, yet conceals a sophisticated therapy engine within. 3D rollers with six depth levels, triple-row Shiatsu foot rollers and bilingual voice control.\n\nThe perfect living-room companion — elegant as a seat, extraordinary as a therapist."
+      },
+      "highlights": [
+        { "vi": "Con lăn 3D, 6 cấp độ sâu", "en": "3D rollers, six depth levels" },
+        { "vi": "Shiatsu chân ba hàng", "en": "Triple-row Shiatsu foot rollers" },
+        { "vi": "Điều khiển giọng nói", "en": "Voice control" }
+      ],
+      "specs": {
+        "programs": "30",
+        "rollers": "3D",
+        "track": "SL-Track 135 cm",
+        "zeroGravity": { "vi": "1 cấp", "en": "1-stage" },
+        "airbags": "40",
+        "heat": { "vi": "Lưng", "en": "Back" },
+        "dimensions": "152 × 80 × 116 cm",
+        "weight": "102 kg",
+        "power": "220V · 200W",
+        "warranty": { "vi": "6 năm", "en": "6 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Nâu Chestnut", "en": "Chestnut" }, "hex": "#5B3A26" },
+        { "name": { "vi": "Xanh Racing", "en": "Racing Green" }, "hex": "#1F3A2E" }
+      ]
+    },
+    {
+      "id": "p-aurelian-s",
+      "slug": "aurelian-s",
+      "order": 4,
+      "status": "published",
+      "featured": false,
+      "name": "Aurelian S",
+      "series": "Heritage",
+      "price": 124000000,
+      "accent": "#A68B5B",
+      "badge": { "vi": "", "en": "" },
+      "tagline": { "vi": "Tinh hoa trong từng đường nét", "en": "Refinement in every line" },
+      "summary": {
+        "vi": "Ray L-Track ôm trọn từ cổ đến đùi, 28 chương trình tự động và kết nối ứng dụng.",
+        "en": "An L-Track that reaches from neck to thigh, 28 auto programmes and app connectivity."
+      },
+      "description": {
+        "vi": "Aurelian S đưa trải nghiệm massage toàn thân cao cấp đến gần hơn. Ray L-Track kéo dài từ cổ xuống tận đùi, massage cơ mông và gân kheo — vùng thường bị bỏ quên.\n\nỨng dụng Thomas Hamilton cho phép lưu hồ sơ của cả gia đình, theo dõi lịch sử trị liệu và tải thêm chương trình mới.",
+        "en": "Aurelian S brings premium full-body massage within closer reach. Its L-Track extends from neck to thigh, working the glutes and hamstrings — areas too often overlooked.\n\nThe Thomas Hamilton app stores profiles for the whole family, tracks your sessions and downloads new programmes."
+      },
+      "highlights": [
+        { "vi": "L-Track cổ đến đùi", "en": "Neck-to-thigh L-Track" },
+        { "vi": "Ứng dụng & hồ sơ gia đình", "en": "App & family profiles" },
+        { "vi": "28 chương trình tự động", "en": "28 auto programmes" }
+      ],
+      "specs": {
+        "programs": "28",
+        "rollers": "3D",
+        "track": "L-Track 130 cm",
+        "zeroGravity": { "vi": "1 cấp", "en": "1-stage" },
+        "airbags": "36",
+        "heat": { "vi": "Lưng", "en": "Back" },
+        "dimensions": "148 × 76 × 112 cm",
+        "weight": "92 kg",
+        "power": "220V · 180W",
+        "warranty": { "vi": "5 năm", "en": "5 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Đen Onyx", "en": "Onyx Black" }, "hex": "#141312" },
+        { "name": { "vi": "Xám Pebble", "en": "Pebble" }, "hex": "#8E8A84" }
+      ]
+    },
+    {
+      "id": "p-belgravia",
+      "slug": "belgravia",
+      "order": 5,
+      "status": "published",
+      "featured": false,
+      "name": "Belgravia",
+      "series": "Atelier",
+      "price": 96000000,
+      "accent": "#C2A378",
+      "badge": { "vi": "", "en": "" },
+      "tagline": { "vi": "Nhỏ gọn cho căn hộ đô thị", "en": "Compact for the city residence" },
+      "summary": {
+        "vi": "Thiết kế gọn nhẹ cho căn hộ, con lăn 2D+ và chế độ massage nhanh 10 phút.",
+        "en": "A slender footprint for apartments, 2D+ rollers and a 10-minute express mode."
+      },
+      "description": {
+        "vi": "Belgravia được thiết kế cho nhịp sống đô thị. Kích thước gọn, chỉ cần cách tường 8 cm, nhưng vẫn mang đến trọn vẹn liệu trình thư giãn với con lăn 2D+ và túi khí toàn thân.\n\nChế độ Express 10 phút giúp bạn phục hồi năng lượng giữa ngày làm việc.",
+        "en": "Belgravia is designed for city living. A compact footprint needing only 8 cm from the wall, yet it delivers a complete restorative ritual with 2D+ rollers and full-body airbags.\n\nThe 10-minute Express mode restores your energy in the middle of a working day."
+      },
+      "highlights": [
+        { "vi": "Cách tường chỉ 8 cm", "en": "Just 8 cm from the wall" },
+        { "vi": "Chế độ Express 10 phút", "en": "10-minute Express mode" }
+      ],
+      "specs": {
+        "programs": "18",
+        "rollers": "2D+",
+        "track": "S-Track 120 cm",
+        "zeroGravity": { "vi": "1 cấp", "en": "1-stage" },
+        "airbags": "28",
+        "heat": { "vi": "Lưng", "en": "Back" },
+        "dimensions": "138 × 72 × 108 cm",
+        "weight": "74 kg",
+        "power": "220V · 150W",
+        "warranty": { "vi": "4 năm", "en": "4 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Kem Ivory", "en": "Ivory" }, "hex": "#E9E1D3" },
+        { "name": { "vi": "Xám Graphite", "en": "Graphite" }, "hex": "#3A3836" }
+      ]
+    },
+    {
+      "id": "p-windsor-lite",
+      "slug": "windsor-lite",
+      "order": 6,
+      "status": "published",
+      "featured": false,
+      "name": "Windsor Lite",
+      "series": "Atelier",
+      "price": 68000000,
+      "accent": "#9C9284",
+      "badge": { "vi": "", "en": "" },
+      "tagline": { "vi": "Khởi đầu hành trình thư giãn", "en": "Where the ritual begins" },
+      "summary": {
+        "vi": "Mẫu ghế khởi đầu với chất lượng chế tác Thomas Hamilton nguyên bản.",
+        "en": "Our entry model, with uncompromised Thomas Hamilton craftsmanship."
+      },
+      "description": {
+        "vi": "Windsor Lite là cánh cửa bước vào thế giới Thomas Hamilton. Vẫn là khung thép gia cường, da PU cao cấp và quy trình kiểm định 168 giờ như mọi dòng ghế khác của chúng tôi.\n\nPhù hợp cho người mới bắt đầu hoặc làm quà tặng cha mẹ.",
+        "en": "Windsor Lite is the doorway into the world of Thomas Hamilton — with the same reinforced steel frame, premium upholstery and 168-hour quality testing as every chair we make.\n\nIdeal as a first chair or a gift for parents."
+      },
+      "highlights": [
+        { "vi": "Kiểm định 168 giờ", "en": "168-hour quality testing" },
+        { "vi": "Quà tặng ý nghĩa cho cha mẹ", "en": "A meaningful gift for parents" }
+      ],
+      "specs": {
+        "programs": "12",
+        "rollers": "2D",
+        "track": "S-Track 115 cm",
+        "zeroGravity": { "vi": "Không", "en": "No" },
+        "airbags": "20",
+        "heat": { "vi": "Lưng", "en": "Back" },
+        "dimensions": "132 × 70 × 104 cm",
+        "weight": "66 kg",
+        "power": "220V · 120W",
+        "warranty": { "vi": "3 năm", "en": "3 years" }
+      },
+      "colors": [
+        { "name": { "vi": "Nâu Cognac", "en": "Cognac" }, "hex": "#7A4A2A" },
+        { "name": { "vi": "Đen Onyx", "en": "Onyx Black" }, "hex": "#141312" }
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": "b-zero-gravity",
+      "slug": "zero-gravity-la-gi",
+      "order": 1,
+      "status": "published",
+      "date": "2026-10-12",
+      "category": { "vi": "Công nghệ", "en": "Technology" },
+      "readMinutes": 5,
+      "title": { "vi": "Zero Gravity là gì và vì sao cột sống của bạn cần nó?", "en": "What is Zero Gravity, and why does your spine need it?" },
+      "excerpt": {
+        "vi": "Tư thế không trọng lực được NASA nghiên cứu từ những năm 1970. Đây là cách nó giải phóng áp lực lên đĩa đệm.",
+        "en": "The weightless posture was studied by NASA in the 1970s. Here is how it relieves pressure on your discs."
+      },
+      "body": {
+        "vi": "Khi phi hành gia rời bệ phóng, họ nằm ở một tư thế đặc biệt: hông và đầu gối gập khoảng 120 độ, chân cao hơn tim. Tư thế này phân bổ lực đều khắp cơ thể và giảm tải tối đa cho cột sống.\n\n## Tác động lên cột sống\n\nỞ tư thế ngồi thông thường, đĩa đệm thắt lưng chịu áp lực lớn gấp nhiều lần khi nằm. Zero Gravity đưa cơ thể về trạng thái trung tính, giúp đĩa đệm được \"thở\" và cơ lưng thả lỏng hoàn toàn.\n\n## Tuần hoàn máu\n\nKhi chân được nâng cao hơn tim, máu từ chi dưới trở về tim dễ dàng hơn, giảm cảm giác nặng chân sau một ngày dài đứng hoặc ngồi.\n\n## Trải nghiệm tại showroom\n\nCách tốt nhất để hiểu Zero Gravity là cảm nhận nó. Hãy đặt lịch trải nghiệm 45 phút miễn phí tại showroom Thomas Hamilton gần bạn.",
+        "en": "When astronauts leave the launch pad, they lie in a particular posture: hips and knees bent at roughly 120 degrees, legs above the heart. This position spreads force evenly across the body and minimises load on the spine.\n\n## The effect on your spine\n\nIn an ordinary seated posture, the lumbar discs carry several times the load they do when lying down. Zero Gravity returns the body to neutral, letting the discs decompress and the back muscles release completely.\n\n## Circulation\n\nWith the legs raised above the heart, blood returns from the lower limbs more easily, easing heaviness after a long day of standing or sitting.\n\n## Experience it in person\n\nThe best way to understand Zero Gravity is to feel it. Book a complimentary 45-minute experience at your nearest Thomas Hamilton showroom."
+      }
+    },
+    {
+      "id": "b-chon-ghe",
+      "slug": "cach-chon-ghe-massage",
+      "order": 2,
+      "status": "published",
+      "date": "2026-09-28",
+      "category": { "vi": "Cẩm nang", "en": "Guide" },
+      "readMinutes": 7,
+      "title": { "vi": "5 tiêu chí chọn ghế massage cao cấp cho gia đình", "en": "Five criteria for choosing a premium massage chair" },
+      "excerpt": {
+        "vi": "Từ loại ray, con lăn đến không gian đặt ghế — những điều chuyên gia của chúng tôi luôn tư vấn đầu tiên.",
+        "en": "From track type and rollers to the space it will live in — what our specialists always discuss first."
+      },
+      "body": {
+        "vi": "Một chiếc ghế massage cao cấp là khoản đầu tư cho sức khỏe trong nhiều năm. Dưới đây là năm tiêu chí giúp bạn chọn đúng.\n\n## 1. Loại ray massage\n\nS-Track ôm theo đường cong cột sống, L-Track kéo dài xuống tận đùi, còn SL-Track kết hợp cả hai. Nếu bạn hay đau thắt lưng hoặc mỏi mông, hãy ưu tiên L-Track hoặc SL-Track.\n\n## 2. Công nghệ con lăn\n\nCon lăn 2D di chuyển lên xuống và sang ngang. 3D thêm khả năng đẩy sâu vào cơ. 4D điều chỉnh tốc độ theo nhịp, mô phỏng đôi tay người thật.\n\n## 3. Chiều cao người dùng\n\nKiểm tra phạm vi chiều cao hỗ trợ, đặc biệt nếu cả gia đình cùng sử dụng.\n\n## 4. Không gian đặt ghế\n\nĐo khoảng trống khi ghế ngả hoàn toàn. Các mẫu có công nghệ tiết kiệm không gian chỉ cần cách tường 5–8 cm.\n\n## 5. Bảo hành và dịch vụ\n\nChọn thương hiệu có trung tâm bảo hành chính hãng và kỹ thuật viên đến tận nhà.",
+        "en": "A premium massage chair is an investment in years of wellbeing. Here are five criteria that will help you choose well.\n\n## 1. Track type\n\nAn S-Track follows the curve of the spine, an L-Track extends down to the thighs, and an SL-Track combines both. If you suffer from lower-back or glute fatigue, favour an L-Track or SL-Track.\n\n## 2. Roller technology\n\n2D rollers travel up, down and across. 3D adds depth into the muscle. 4D varies rhythm and speed, replicating human hands.\n\n## 3. Height range\n\nCheck the supported height range, especially if the whole family will use the chair.\n\n## 4. Space\n\nMeasure the clearance when fully reclined. Space-saving models need only 5–8 cm from the wall.\n\n## 5. Warranty and service\n\nChoose a brand with official service centres and technicians who come to your home."
+      }
+    },
+    {
+      "id": "b-atelier",
+      "slug": "ben-trong-xuong-che-tac",
+      "order": 3,
+      "status": "published",
+      "date": "2026-09-05",
+      "category": { "vi": "Thương hiệu", "en": "Brand" },
+      "readMinutes": 4,
+      "title": { "vi": "Bên trong xưởng chế tác: 36 giờ cho một chiếc ghế", "en": "Inside the atelier: 36 hours for a single chair" },
+      "excerpt": {
+        "vi": "Từ tấm da Nappa thô đến đường chỉ cuối cùng — hành trình của một chiếc Sovereign X9.",
+        "en": "From raw Nappa hide to the final stitch — the journey of a Sovereign X9."
+      },
+      "body": {
+        "vi": "Mỗi chiếc Sovereign X9 bắt đầu bằng việc tuyển chọn da. Chỉ khoảng 15% tấm da Nappa nhập về đạt tiêu chuẩn của chúng tôi về độ đồng đều và độ mềm.\n\n## Khâu tay\n\nNghệ nhân dành 36 giờ để cắt, ghép và khâu từng mảnh da bằng tay. Mật độ mũi chỉ được kiểm soát chính xác 6 mũi mỗi centimet.\n\n## Kiểm định\n\nTrước khi xuất xưởng, mỗi chiếc ghế trải qua 168 giờ vận hành liên tục và 42 bước kiểm tra chất lượng.",
+        "en": "Every Sovereign X9 begins with the selection of leather. Only around 15% of the Nappa hides we receive meet our standard for consistency and softness.\n\n## Hand stitching\n\nArtisans spend 36 hours cutting, fitting and stitching each panel by hand, at a precise density of six stitches per centimetre.\n\n## Testing\n\nBefore leaving the atelier, each chair undergoes 168 hours of continuous operation and 42 quality checkpoints."
+      }
+    }
+  ],
+  "showrooms": [
+    {
+      "id": "s-hcm",
+      "order": 1,
+      "city": { "vi": "TP. Hồ Chí Minh", "en": "Ho Chi Minh City" },
+      "name": { "vi": "Flagship Đồng Khởi", "en": "Dong Khoi Flagship" },
+      "address": "88 Đồng Khởi, Phường Sài Gòn, TP. Hồ Chí Minh",
+      "phone": "+84 28 3822 6868",
+      "hours": { "vi": "09:00 – 21:00 hằng ngày", "en": "09:00 – 21:00 daily" },
+      "mapQuery": "88 Dong Khoi, Ho Chi Minh City"
+    },
+    {
+      "id": "s-hn",
+      "order": 2,
+      "city": { "vi": "Hà Nội", "en": "Hanoi" },
+      "name": { "vi": "Showroom Tràng Tiền", "en": "Trang Tien Showroom" },
+      "address": "26 Tràng Tiền, Phường Hoàn Kiếm, Hà Nội",
+      "phone": "+84 24 3933 6868",
+      "hours": { "vi": "09:00 – 21:00 hằng ngày", "en": "09:00 – 21:00 daily" },
+      "mapQuery": "26 Trang Tien, Hoan Kiem, Hanoi"
+    },
+    {
+      "id": "s-dn",
+      "order": 3,
+      "city": { "vi": "Đà Nẵng", "en": "Da Nang" },
+      "name": { "vi": "Showroom Bạch Đằng", "en": "Bach Dang Showroom" },
+      "address": "120 Bạch Đằng, Phường Hải Châu, Đà Nẵng",
+      "phone": "+84 236 382 6868",
+      "hours": { "vi": "09:00 – 20:30 hằng ngày", "en": "09:00 – 20:30 daily" },
+      "mapQuery": "120 Bach Dang, Hai Chau, Da Nang"
+    }
+  ],
+  "faqs": [
+    {
+      "id": "f1", "order": 1, "category": "purchase",
+      "q": { "vi": "Tôi có thể trải nghiệm ghế trước khi mua không?", "en": "Can I try a chair before buying?" },
+      "a": { "vi": "Có. Mỗi showroom có phòng trải nghiệm riêng tư. Bạn có thể đặt lịch 45 phút miễn phí, kèm trà và tư vấn cá nhân với chuyên gia.", "en": "Yes. Every showroom has private experience suites. Book a complimentary 45-minute session with tea and a one-to-one consultation." }
+    },
+    {
+      "id": "f2", "order": 2, "category": "purchase",
+      "q": { "vi": "Thomas Hamilton có hỗ trợ trả góp không?", "en": "Do you offer instalment plans?" },
+      "a": { "vi": "Chúng tôi hỗ trợ trả góp 0% lãi suất đến 24 tháng qua thẻ tín dụng của các ngân hàng đối tác.", "en": "We offer 0% instalments for up to 24 months with partner bank credit cards." }
+    },
+    {
+      "id": "f3", "order": 3, "category": "delivery",
+      "q": { "vi": "Thời gian giao hàng và lắp đặt là bao lâu?", "en": "How long does delivery and installation take?" },
+      "a": { "vi": "Nội thành Hà Nội, TP.HCM và Đà Nẵng: 24–48 giờ. Các tỉnh thành khác: 3–5 ngày. Đội kỹ thuật lắp đặt và hướng dẫn sử dụng tận nơi, miễn phí.", "en": "Within Hanoi, HCMC and Da Nang: 24–48 hours. Other provinces: 3–5 days. Our technicians install and walk you through the chair at no cost." }
+    },
+    {
+      "id": "f4", "order": 4, "category": "warranty",
+      "q": { "vi": "Chính sách bảo hành như thế nào?", "en": "What does the warranty cover?" },
+      "a": { "vi": "Bảo hành từ 3 đến 10 năm tùy dòng sản phẩm, bao gồm khung, động cơ và bo mạch. Kỹ thuật viên đến tận nhà trong vòng 24 giờ.", "en": "Warranty runs from 3 to 10 years depending on the model, covering frame, motors and electronics. A technician visits your home within 24 hours." }
+    },
+    {
+      "id": "f5", "order": 5, "category": "warranty",
+      "q": { "vi": "Tôi có thể đổi trả sản phẩm không?", "en": "Can I return a chair?" },
+      "a": { "vi": "Bạn được đổi sản phẩm trong 30 ngày nếu phát sinh lỗi kỹ thuật từ nhà sản xuất.", "en": "Chairs may be exchanged within 30 days in the event of a manufacturing defect." }
+    },
+    {
+      "id": "f6", "order": 6, "category": "usage",
+      "q": { "vi": "Nên sử dụng ghế massage bao lâu mỗi ngày?", "en": "How long should I use the chair each day?" },
+      "a": { "vi": "Chuyên gia khuyến nghị 15–30 phút mỗi lần, 1–2 lần mỗi ngày. Người có bệnh lý tim mạch, phụ nữ mang thai nên tham khảo ý kiến bác sĩ.", "en": "Specialists recommend 15–30 minutes per session, once or twice a day. Those with heart conditions or who are pregnant should consult a doctor first." }
+    },
+    {
+      "id": "f7", "order": 7, "category": "usage",
+      "q": { "vi": "Ghế phù hợp với chiều cao bao nhiêu?", "en": "What height range do the chairs support?" },
+      "a": { "vi": "Các dòng Signature hỗ trợ chiều cao 150–195 cm. Dòng Heritage và Atelier hỗ trợ 150–185 cm.", "en": "Signature models support 150–195 cm. Heritage and Atelier models support 150–185 cm." }
+    },
+    {
+      "id": "f8", "order": 8, "category": "delivery",
+      "q": { "vi": "Ghế có vừa thang máy chung cư không?", "en": "Will the chair fit in an apartment lift?" },
+      "a": { "vi": "Ghế được giao dạng tháo rời theo module. Đội ngũ của chúng tôi sẽ khảo sát và đảm bảo vận chuyển an toàn.", "en": "Chairs are delivered in modular sections. Our team surveys access in advance to guarantee a safe delivery." }
+    }
+  ],
+  "bookings": [],
+  "messages": []
+}

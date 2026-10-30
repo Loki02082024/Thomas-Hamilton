@@ -1,0 +1,17 @@
+<article class="product-card reveal" style="--accent: <%= p.accent %>; --d: <%= locals.i || 0 %>">
+  <div class="product-card__media">
+    <% if (tr(p.badge)) { %><span class="product-card__badge"><%= tr(p.badge) %></span><% } %>
+    <%- include('product-visual', { product: p, uid: 'card' }) %>
+  </div>
+  <div class="product-card__body">
+    <span class="product-card__series"><%= t.common.series %> <%= p.series %></span>
+    <h3 class="product-card__name"><a class="product-card__link" href="<%= url('/collection/' + p.slug) %>"><%= p.name %></a></h3>
+    <p class="product-card__tagline"><%= tr(p.tagline) %></p>
+  </div>
+  <div class="product-card__foot">
+    <div class="product-card__price"><small><%= t.common.from %></small><span><%= money(p.price) %></span></div>
+    <div class="swatches" aria-label="<%= t.common.colors %>">
+      <% (p.colors || []).forEach((c) => { %><span class="swatch" style="background: <%= c.hex %>" title="<%= tr(c.name) %>"></span><% }) %>
+    </div>
+  </div>
+</article>

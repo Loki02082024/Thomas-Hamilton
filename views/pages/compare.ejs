@@ -1,0 +1,42 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.compare.eyebrow, title: t.compare.title, intro: t.compare.intro, crumbs: [{ label: t.nav.collection, href: '/collection' }, { label: t.compare.eyebrow }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <form method="get" action="<%= url('/compare') %>" data-compare>
+      <div class="compare-wrap">
+        <table class="compare">
+          <caption class="visually-hidden"><%= t.compare.title %></caption>
+          <thead>
+            <tr>
+              <th scope="col"><span class="h4 muted"><%= t.compare.model %></span></th>
+              <% picks.forEach((p, i) => { %>
+              <th scope="col" style="--accent: <%= p.accent %>">
+                <div class="compare__head">
+                  <%- include('../partials/product-visual', { product: p, uid: 'cmp' + i }) %>
+                  <label class="visually-hidden" for="cmp-<%= i %>"><%= t.compare.choose %> <%= i + 1 %></label>
+                  <select class="select" id="cmp-<%= i %>" name="m<%= i %>">
+                    <% all.forEach((o) => { %><option value="<%= o.slug %>"<%= o.slug === p.slug ? ' selected' : '' %>><%= o.name %></option><% }) %>
+                  </select>
+                  <span class="serif" style="font-size:1.4rem;color:var(--gold-2)"><%= money(p.price) %></span>
+                  <a class="link-arrow" href="<%= url('/collection/' + p.slug) %>"><%= t.common.viewDetails %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+                </div>
+              </th>
+              <% }) %>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><%= t.common.series %></th><% picks.forEach((p) => { %><td><%= p.series %></td><% }) %></tr>
+            <% Object.keys(t.specs).forEach((k) => { %>
+            <tr><th scope="row"><%= t.specs[k] %></th><% picks.forEach((p) => { %><td><%= tr((p.specs || {})[k]) || '—' %></td><% }) %></tr>
+            <% }) %>
+            <tr><th scope="row"><%= t.product.highlights %></th><% picks.forEach((p) => { %><td><ul style="display:grid;gap:.4rem"><% (p.highlights || []).forEach((h) => { %><li>— <%= tr(h) %></li><% }) %></ul></td><% }) %></tr>
+          </tbody>
+        </table>
+      </div>
+      <noscript><button class="btn" type="submit" style="margin-top:1.5rem"><%= t.common.compare %></button></noscript>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,66 @@
+<%
+// Stylised side-profile illustration of a reclined massage chair.
+// Used as the product visual until real photography is supplied (product.image).
+// Params: uid (unique per page), accent (hex), cls, label
+const id = 'ch' + (locals.uid || Math.random().toString(36).slice(2, 8));
+const accent = locals.accent || '#C9A96E';
+const leather = locals.leather || '#1a1613';
+%><svg class="chair <%= locals.cls || '' %>" viewBox="0 0 600 440" role="img" aria-label="<%= locals.label || 'Thomas Hamilton massage chair' %>" style="--accent: <%= accent %>">
+  <defs>
+    <linearGradient id="<%= id %>-shell" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="<%= leather %>" data-leather/>
+      <stop offset=".55" stop-color="#0e0c0a"/>
+      <stop offset="1" stop-color="#060505"/>
+    </linearGradient>
+    <linearGradient id="<%= id %>-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="<%= accent %>" stop-opacity="0"/>
+      <stop offset=".5" stop-color="<%= accent %>" stop-opacity=".55"/>
+      <stop offset="1" stop-color="<%= accent %>" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="<%= id %>-cushion" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="<%= accent %>" stop-opacity=".38"/>
+      <stop offset="1" stop-color="<%= leather %>" stop-opacity=".9" data-leather/>
+    </linearGradient>
+    <linearGradient id="<%= id %>-metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3a342c"/>
+      <stop offset=".5" stop-color="<%= accent %>"/>
+      <stop offset="1" stop-color="#3a342c"/>
+    </linearGradient>
+    <radialGradient id="<%= id %>-shadow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#000" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- floor shadow -->
+  <ellipse cx="320" cy="398" rx="250" ry="22" fill="url(#<%= id %>-shadow)"/>
+
+  <!-- pedestal -->
+  <path d="M232 352c40 14 150 14 196 0l10 22c-50 18-166 18-218 0z" fill="url(#<%= id %>-metal)" opacity=".85"/>
+  <path d="M286 324h96l8 30h-112z" fill="#0c0a08" stroke="<%= accent %>" stroke-opacity=".35"/>
+
+  <!-- leg rest -->
+  <path d="M418 262c22-6 42 2 52 20l78 92c10 13 4 30-13 31l-30 2c-14 1-25-6-32-17l-66-92c-8-14-4-31 11-36z" fill="url(#<%= id %>-shell)" stroke="<%= accent %>" stroke-opacity=".5"/>
+  <path d="M432 282l66 82" stroke="<%= accent %>" stroke-opacity=".55" stroke-dasharray="4 5"/>
+  <path d="M512 366c8 0 20 4 26 12" stroke="url(#<%= id %>-sheen)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- main shell: backrest + seat -->
+  <path d="M116 58c-28 5-36 34-24 62l74 172c11 25 31 36 60 36h178c26 0 38-15 33-36l-6-22c-4-16-18-24-36-24H264c-17 0-27-8-33-22L172 90c-11-24-31-36-56-32z" fill="url(#<%= id %>-shell)" stroke="<%= accent %>" stroke-opacity=".55"/>
+
+  <!-- back cushion panel with stitching -->
+  <path d="M128 84c-16 4-18 20-12 36l64 148c6 14 16 20 30 20h20c-14-4-22-12-28-26L148 108c-6-14-10-24-20-24z" fill="url(#<%= id %>-cushion)" opacity=".7"/>
+  <path d="M120 100l70 166M140 92l68 160" stroke="<%= accent %>" stroke-opacity=".5" stroke-dasharray="3 6"/>
+
+  <!-- headrest pillow -->
+  <ellipse cx="124" cy="92" rx="34" ry="20" transform="rotate(-62 124 92)" fill="url(#<%= id %>-cushion)" stroke="<%= accent %>" stroke-opacity=".6"/>
+
+  <!-- armrest -->
+  <path d="M236 232c0-18 14-26 32-26h134c20 0 30 12 28 30l-4 26H244z" fill="#100e0c" stroke="<%= accent %>" stroke-opacity=".7"/>
+  <path d="M252 222h160" stroke="url(#<%= id %>-sheen)" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="380" y="216" width="34" height="12" rx="6" fill="<%= accent %>" opacity=".85"/>
+
+  <!-- seat highlight -->
+  <path d="M248 300h170" stroke="url(#<%= id %>-sheen)" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+  <!-- back highlight -->
+  <path d="M104 116l70 164" stroke="url(#<%= id %>-sheen)" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+</svg>

@@ -1,0 +1,48 @@
+<%
+const navItems = [
+  { href: '/collection', label: t.nav.collection, n: '01' },
+  { href: '/technology', label: t.nav.technology, n: '02' },
+  { href: '/story', label: t.nav.story, n: '03' },
+  { href: '/showrooms', label: t.nav.showrooms, n: '04' },
+  { href: '/journal', label: t.nav.journal, n: '05' },
+];
+const isActive = (href) => path === href || path.startsWith(href + '/');
+%>
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="<%= url('/') %>" aria-label="THOMAS HAMILTON — <%= lang === 'vi' ? 'Trang chủ' : 'Home' %>">
+      <span class="brand__word">THOMAS HAMILTON</span>
+      <span class="brand__sub">Est. <%= site.founded %></span>
+    </a>
+
+    <nav class="nav-primary" aria-label="<%= lang === 'vi' ? 'Điều hướng chính' : 'Main navigation' %>">
+      <ul>
+        <% navItems.forEach((item) => { %>
+        <li><a href="<%= url(item.href) %>"<% if (isActive(item.href)) { %> aria-current="page"<% } %>><%= item.label %></a></li>
+        <% }) %>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="lang-switch" href="<%= altUrl %>" hreflang="<%= otherLang %>" lang="<%= otherLang %>" aria-label="<%= t.nav.switchLang %>"><%= otherLang.toUpperCase() %></a>
+      <a class="btn btn--sm btn--gold" href="<%= url('/book') %>"><%= t.nav.book %></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" data-menu-toggle>
+        <span></span><span class="visually-hidden"><%= t.nav.menu %></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" data-drawer aria-hidden="true">
+  <nav aria-label="<%= t.nav.menu %>">
+    <% navItems.forEach((item) => { %>
+    <a href="<%= url(item.href) %>"<% if (isActive(item.href)) { %> aria-current="page"<% } %>><small><%= item.n %></small><%= item.label %></a>
+    <% }) %>
+    <a href="<%= url('/faq') %>"><small>06</small>FAQ</a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--gold btn--block" href="<%= url('/book') %>"><%= t.nav.book %></a>
+    <a href="<%= site.hotlineHref %>">Hotline <strong class="gold"><%= site.hotline %></strong></a>
+    <span><%= tr(site.hours) %></span>
+  </div>
+</div>

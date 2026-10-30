@@ -1,0 +1,79 @@
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div style="display:grid;gap:1rem">
+        <span class="eyebrow"><%= t.footer.newsletter %></span>
+        <p class="lead"><%= t.footer.newsletterText %></p>
+      </div>
+      <form class="newsletter-form" action="<%= url('/newsletter') %>" method="post" data-newsletter novalidate>
+        <input type="hidden" name="_token" value="<%= formToken %>">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="newsletter">
+          <label class="visually-hidden" for="nl-email">Email</label>
+          <input class="input" id="nl-email" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="email@domain.com">
+          <button class="btn btn--gold" type="submit"><%= lang === 'vi' ? 'Đăng ký' : 'Subscribe' %></button>
+        </div>
+        <p class="newsletter-msg" role="status" aria-live="polite" data-ok="<%= lang === 'vi' ? 'Cảm ơn bạn đã đăng ký.' : 'Thank you for subscribing.' %>" data-err="<%= t.booking.errors.email %>"></p>
+      </form>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <a class="brand" href="<%= url('/') %>"><span class="brand__word">THOMAS HAMILTON</span><span class="brand__sub">Est. <%= site.founded %></span></a>
+        <p><%= tr(site.tagline) %>. <%= t.meta.description %></p>
+        <div class="socials">
+          <a href="<%= site.social.facebook %>" target="_blank" rel="noopener" aria-label="Facebook"><%- include('icon', { name: 'facebook' }) %></a>
+          <a href="<%= site.social.instagram %>" target="_blank" rel="noopener" aria-label="Instagram"><%- include('icon', { name: 'instagram' }) %></a>
+          <a href="<%= site.social.youtube %>" target="_blank" rel="noopener" aria-label="YouTube"><%- include('icon', { name: 'youtube' }) %></a>
+        </div>
+      </div>
+      <div>
+        <h3><%= t.footer.explore %></h3>
+        <ul>
+          <li><a href="<%= url('/collection') %>"><%= t.nav.collection %></a></li>
+          <li><a href="<%= url('/compare') %>"><%= t.collection.compareCta %></a></li>
+          <li><a href="<%= url('/technology') %>"><%= t.nav.technology %></a></li>
+          <li><a href="<%= url('/story') %>"><%= t.nav.story %></a></li>
+          <li><a href="<%= url('/journal') %>"><%= t.nav.journal %></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3><%= t.footer.support %></h3>
+        <ul>
+          <li><a href="<%= url('/book') %>"><%= t.nav.book %></a></li>
+          <li><a href="<%= url('/showrooms') %>"><%= t.nav.showrooms %></a></li>
+          <li><a href="<%= url('/warranty') %>"><%= t.warranty.eyebrow %></a></li>
+          <li><a href="<%= url('/faq') %>">FAQ</a></li>
+          <li><a href="<%= url('/contact') %>"><%= t.contact.eyebrow %></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3><%= t.footer.contact %></h3>
+        <ul>
+          <li><a href="<%= site.hotlineHref %>">Hotline <%= site.hotline %></a></li>
+          <li><a href="mailto:<%= site.email %>"><%= site.email %></a></li>
+          <li><a href="<%= site.zalo %>" target="_blank" rel="noopener">Zalo</a></li>
+          <li><span class="muted" style="font-size:.88rem"><%= tr(site.hours) %></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-mark" aria-hidden="true">HAMILTON</div>
+
+  <div class="container footer-bottom">
+    <span>© <%= year %> <%= tr(site.company) %>. <%= t.footer.rights %></span>
+    <span>MST/Tax ID: <%= site.taxId %></span>
+  </div>
+</footer>
+
+<div class="fab">
+  <a href="<%= site.zalo %>" target="_blank" rel="noopener" aria-label="<%= t.common.chatZalo %>"><%- include('icon', { name: 'chat' }) %></a>
+  <a href="<%= site.hotlineHref %>" aria-label="<%= t.common.callUs %> <%= site.hotline %>"><%- include('icon', { name: 'phone' }) %></a>
+</div>
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>

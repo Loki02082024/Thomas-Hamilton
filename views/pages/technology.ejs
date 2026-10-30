@@ -1,0 +1,70 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.tech.eyebrow, title: t.tech.title, intro: t.tech.intro, crumbs: [{ label: t.nav.technology }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="tech-grid">
+      <% t.tech.items.forEach((it, i) => { %>
+      <div class="tech-item reveal" style="--d:<%= i % 3 %>">
+        <span class="tech-item__num">0<%= i + 1 %></span>
+        <%- include('../partials/icon', { name: it.key, cls: 'tech-item__icon' }) %>
+        <h2 class="h3"><%= it.title %></h2>
+        <p><%= it.text %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container chapter">
+    <div class="chapter__visual reveal" aria-hidden="true">
+      <svg viewBox="0 0 400 440">
+        <% for (let v = 0; v < 17; v++) { const y = 60 + v * 20; const w = 34 - Math.abs(v - 8) * 1.4; %>
+        <rect x="<%= 200 - w / 2 %>" y="<%= y %>" width="<%= w %>" height="14" rx="5" fill="none" stroke="#c9a96e" stroke-opacity=".45"/>
+        <% } %>
+        <g class="roller"><circle cx="160" cy="90" r="16" fill="#c9a96e" opacity=".2"/><circle cx="160" cy="90" r="9" fill="#e5cd9a"/><circle cx="240" cy="90" r="16" fill="#c9a96e" opacity=".2"/><circle cx="240" cy="90" r="9" fill="#e5cd9a"/></g>
+        <g class="roller roller--b"><circle cx="160" cy="150" r="14" fill="none" stroke="#e5cd9a" stroke-opacity=".6"/><circle cx="240" cy="150" r="14" fill="none" stroke="#e5cd9a" stroke-opacity=".6"/></g>
+        <circle class="pulse" cx="200" cy="230" r="70" fill="none" stroke="#c9a96e" stroke-opacity=".35"/>
+      </svg>
+      <span class="chapter__tag">AI Body Scan 3.0</span>
+    </div>
+    <div class="chapter__copy">
+      <span class="eyebrow reveal"><%= t.tech.items[1].title %></span>
+      <h2 class="h2 reveal" style="--d:1"><%= t.home.ch3Title %></h2>
+      <p class="lead reveal" style="--d:2"><%= t.tech.items[1].text %></p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">168h</span>
+      <h2 class="h2"><%= t.tech.processTitle %></h2>
+    </div>
+    <ol class="process">
+      <% t.tech.process.forEach((s, i) => { %>
+      <li class="reveal" style="--d:<%= i %>">
+        <span class="process__num">0<%= i + 1 %></span>
+        <h3 class="h3"><%= s.title %></h3>
+        <p><%= s.text %></p>
+      </li>
+      <% }) %>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div class="cta-band__copy">
+        <span class="eyebrow"><%= t.home.ctaEyebrow %></span>
+        <h2 class="h2"><%= t.home.ctaTitle %></h2>
+      </div>
+      <a class="btn btn--gold" href="<%= url('/book') %>"><%= t.home.ctaButton %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

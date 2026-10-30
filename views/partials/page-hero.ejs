@@ -1,0 +1,15 @@
+<section class="page-hero">
+  <div class="container">
+    <nav aria-label="Breadcrumb">
+      <ol class="breadcrumb">
+        <li><a href="<%= url('/') %>">THOMAS HAMILTON</a></li>
+        <% (locals.crumbs || []).forEach((c) => { %>
+        <li><% if (c.href) { %><a href="<%= url(c.href) %>"><%= c.label %></a><% } else { %><span aria-current="page"><%= c.label %></span><% } %></li>
+        <% }) %>
+      </ol>
+    </nav>
+    <span class="eyebrow reveal"><%= eyebrow %></span>
+    <h1 class="h1 reveal" style="--d:1"><%- title %></h1>
+    <% if (locals.intro) { %><p class="lead reveal" style="--d:2"><%= intro %></p><% } %>
+  </div>
+</section>

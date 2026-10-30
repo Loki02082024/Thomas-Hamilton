@@ -1,0 +1,81 @@
+<%- include('../partials/head') %>
+<%
+const C = t.contact;
+const err = (k) => errors[k] ? ' has-error' : '';
+const inv = (k) => errors[k] ? 'aria-invalid="true"' : '';
+%>
+<%- include('../partials/page-hero', { eyebrow: C.eyebrow, title: C.title, intro: C.intro, crumbs: [{ label: C.eyebrow }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container split">
+    <div style="display:grid;gap:2.5rem">
+      <ul class="info-list">
+        <li><%- include('../partials/icon', { name: 'phone' }) %><a href="<%= site.hotlineHref %>">Hotline <strong class="gold"><%= site.hotline %></strong></a></li>
+        <li><%- include('../partials/icon', { name: 'mail' }) %><a href="mailto:<%= site.email %>"><%= site.email %></a></li>
+        <li><%- include('../partials/icon', { name: 'chat' }) %><a href="<%= site.zalo %>" target="_blank" rel="noopener"><%= t.common.chatZalo %></a></li>
+        <li><%- include('../partials/icon', { name: 'clock' }) %><span><%= tr(site.hours) %></span></li>
+      </ul>
+      <div style="display:grid;gap:1.25rem">
+        <% showrooms.forEach((s) => { %>
+        <div style="border-top:1px solid var(--line);padding-top:1.25rem;display:grid;gap:.25rem">
+          <span class="h4 gold"><%= tr(s.city) %></span>
+          <span class="serif" style="font-size:1.35rem"><%= tr(s.name) %></span>
+          <span class="muted" style="font-size:.9rem"><%= s.address %></span>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="form-panel">
+      <div class="form-success" id="contact-success" <%= sent ? '' : 'hidden' %> role="status">
+        <%- include('../partials/icon', { name: 'check' }) %>
+        <h2 class="h2"><%= t.booking.successTitle %></h2>
+        <p class="lead"><%= C.successText %></p>
+      </div>
+
+      <form class="form" action="<%= url('/contact') %>" method="post" novalidate data-ajax data-success="#contact-success" <%= sent ? 'hidden' : '' %>>
+        <h2 class="h3"><%= C.formTitle %></h2>
+        <input type="hidden" name="_token" value="<%= formToken %>">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="form-status form-status--error" data-form-status hidden role="alert"><%= t.booking.error %></p>
+
+        <div class="form-row form-row--2">
+          <div class="field<%= err('name') %>" data-field="name">
+            <label for="c-name"><%= t.booking.name %><span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="c-name" name="name" autocomplete="name" required maxlength="80" value="<%= values.name || '' %>" aria-describedby="err-name" <%- inv('name') %>>
+            <%- include('../partials/field-error', { name: 'name', errors }) %>
+          </div>
+          <div class="field<%= err('email') %>" data-field="email">
+            <label for="c-email"><%= t.booking.email %><span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="c-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="120" value="<%= values.email || '' %>" aria-describedby="err-email" <%- inv('email') %>>
+            <%- include('../partials/field-error', { name: 'email', errors }) %>
+          </div>
+        </div>
+
+        <div class="form-row form-row--2">
+          <div class="field<%= err('phone') %>" data-field="phone">
+            <label for="c-phone"><%= t.booking.phone %><span class="opt">(<%= t.common.optional %>)</span></label>
+            <input class="input" id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" value="<%= values.phone || '' %>" aria-describedby="err-phone" <%- inv('phone') %>>
+            <%- include('../partials/field-error', { name: 'phone', errors }) %>
+          </div>
+          <div class="field" data-field="subject">
+            <label for="c-subject"><%= C.subject %></label>
+            <select class="select" id="c-subject" name="subject">
+              <% C.subjects.forEach((s) => { %><option<%= values.subject === s ? ' selected' : '' %>><%= s %></option><% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div class="field<%= err('message') %>" data-field="message">
+          <label for="c-message"><%= C.message %><span class="req" aria-hidden="true">*</span></label>
+          <textarea class="textarea" id="c-message" name="message" required maxlength="3000" aria-describedby="err-message" <%- inv('message') %>><%= values.message || '' %></textarea>
+          <%- include('../partials/field-error', { name: 'message', errors }) %>
+        </div>
+
+        <button class="btn btn--gold btn--block" type="submit" data-sending="<%= t.booking.sending %>"><%= C.submit %> <%- include('../partials/icon', { name: 'arrow' }) %></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

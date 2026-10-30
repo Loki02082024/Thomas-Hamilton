@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.showrooms.eyebrow, title: t.showrooms.title, intro: t.showrooms.intro, crumbs: [{ label: t.nav.showrooms }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <% showrooms.forEach((s, i) => { %>
+    <article class="showroom reveal">
+      <div class="showroom__info">
+        <span class="eyebrow"><%= tr(s.city) %></span>
+        <h2 class="h2"><%= tr(s.name) %></h2>
+        <ul class="info-list">
+          <li><%- include('../partials/icon', { name: 'pin' }) %><span><%= s.address %></span></li>
+          <li><%- include('../partials/icon', { name: 'phone' }) %><a href="tel:<%= s.phone.replace(/\s/g, '') %>"><%= s.phone %></a></li>
+          <li><%- include('../partials/icon', { name: 'clock' }) %><span><%= tr(s.hours) %></span></li>
+        </ul>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.5rem">
+          <a class="btn btn--gold btn--sm" href="<%= url('/book') %>?showroom=<%= s.id %>"><%= t.showrooms.book %></a>
+          <a class="btn btn--sm" href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(s.mapQuery) %>" target="_blank" rel="noopener"><%= t.common.directions %></a>
+        </div>
+      </div>
+      <div class="showroom__map">
+        <iframe title="<%= tr(s.name) %> — Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=<%= encodeURIComponent(s.mapQuery) %>&output=embed"></iframe>
+      </div>
+    </article>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

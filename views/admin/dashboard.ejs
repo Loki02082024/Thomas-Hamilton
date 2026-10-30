@@ -1,0 +1,56 @@
+<%- include('_top', { title: 'Lịch đặt' }) %>
+<%
+const labels = { new: 'Mới', confirmed: 'Đã xác nhận', done: 'Hoàn thành', cancelled: 'Đã huỷ' };
+const fmt = (iso) => iso ? new Date(iso).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : '';
+%>
+<div class="a-stats">
+  <div class="a-stat"><strong><%= stats.newBookings %></strong><span>Lịch đặt mới</span></div>
+  <div class="a-stat"><strong><%= stats.totalBookings %></strong><span>Tổng lịch đặt</span></div>
+  <div class="a-stat"><strong><%= stats.newMessages %></strong><span>Tin nhắn chưa đọc</span></div>
+  <div class="a-stat"><strong><%= stats.products %></strong><span>Sản phẩm</span></div>
+</div>
+
+<div class="a-toolbar">
+  <h1>Lịch đặt trải nghiệm</h1>
+  <nav class="a-filters" aria-label="Lọc trạng thái">
+    <a href="/admin"<%= !filter ? ' aria-current=true' : '' %>>Tất cả</a>
+    <% statuses.forEach((s) => { %><a href="/admin?status=<%= s %>"<%= filter === s ? ' aria-current=true' : '' %>><%= labels[s] %></a><% }) %>
+  </nav>
+</div>
+
+<% if (!bookings.length) { %>
+<p class="a-empty">Chưa có lịch đặt nào.</p>
+<% } else { %>
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead><tr><th>Khách hàng</th><th>Lịch hẹn</th><th>Showroom / Mẫu</th><th>Ghi chú</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>
+      <% bookings.forEach((b) => { %>
+      <tr>
+        <td><strong><%= b.name %></strong><br><a href="tel:<%= b.phone %>"><%= b.phone %></a><% if (b.email) { %><br><a href="mailto:<%= b.email %>"><%= b.email %></a><% } %><br><small>Gửi lúc <%= fmt(b.createdAt) %> · <%= (b.lang || 'vi').toUpperCase() %></small></td>
+        <td><strong><%= b.date %></strong><br><%= b.time %></td>
+        <td><%= b.showroomName %><br><small><%= b.productName || 'Chưa chọn mẫu' %></small></td>
+        <td class="a-note-cell"><%= b.note || '—' %></td>
+        <td>
+          <form method="post" action="/admin/bookings/<%= b.id %>/status" class="a-inline">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+            <label class="visually-hidden" for="st-<%= b.id %>">Trạng thái</label>
+            <select id="st-<%= b.id %>" name="status" data-autosubmit class="a-status a-status--<%= b.status %>">
+              <% statuses.forEach((s) => { %><option value="<%= s %>"<%= b.status === s ? ' selected' : '' %>><%= labels[s] %></option><% }) %>
+            </select>
+            <noscript><button class="a-btn a-btn--sm" type="submit">Lưu</button></noscript>
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/admin/bookings/<%= b.id %>/delete" data-confirm="Xoá lịch đặt của <%= b.name %>?">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+            <button class="a-btn a-btn--danger a-btn--sm" type="submit">Xoá</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } %>
+<%- include('_bottom') %>

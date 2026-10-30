@@ -1,0 +1,25 @@
+<%- include('_top', { title: 'Bài viết' }) %>
+<div class="a-toolbar">
+  <h1>Bài viết (Tạp chí)</h1>
+  <a class="a-btn" href="/admin/posts/new">+ Viết bài mới</a>
+</div>
+<div class="a-table-wrap">
+  <table class="a-table">
+    <thead><tr><th>Ngày</th><th>Tiêu đề</th><th>Chuyên mục</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>
+      <% posts.forEach((p) => { %>
+      <tr>
+        <td><%= p.date %></td>
+        <td><strong><%= p.title.vi %></strong><br><small><%= p.title.en %></small></td>
+        <td><%= p.category.vi %></td>
+        <td><span class="a-status a-status--<%= p.status === 'draft' ? 'cancelled' : 'done' %>"><%= p.status === 'draft' ? 'Nháp' : 'Đã đăng' %></span></td>
+        <td class="a-row-actions">
+          <a class="a-btn a-btn--sm a-btn--ghost" href="/admin/posts/<%= p.id %>">Sửa</a>
+          <a class="a-btn a-btn--sm a-btn--ghost" href="/vi/journal/<%= p.slug %>" target="_blank" rel="noopener">Xem ↗</a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('_bottom') %>

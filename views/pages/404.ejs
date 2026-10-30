@@ -1,0 +1,13 @@
+<%- include('../partials/head') %>
+<section class="not-found">
+  <div class="container">
+    <span class="not-found__code" aria-hidden="true">404</span>
+    <h1 class="h2"><%= t.notFound.title %></h1>
+    <p class="lead"><%= t.notFound.text %></p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+      <a class="btn btn--gold" href="<%= url('/') %>"><%= t.notFound.home %></a>
+      <a class="btn" href="<%= url('/collection') %>"><%= t.nav.collection %></a>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

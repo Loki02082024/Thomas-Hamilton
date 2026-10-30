@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+<% const W = t.warranty; %>
+<%- include('../partials/page-hero', { eyebrow: W.eyebrow, title: W.title, intro: W.intro, crumbs: [{ label: W.eyebrow }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="tiers">
+      <% W.tiers.forEach((tier, i) => { %>
+      <div class="tier reveal" style="--d:<%= i % 3 %>"><span><%= tier.model %></span><strong><%= tier.years %></strong></div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container" style="display:grid;gap:3rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr))">
+    <div style="display:grid;gap:1.5rem;align-content:start">
+      <h2 class="h2"><%= W.coverTitle %></h2>
+      <ul class="check-list">
+        <% W.cover.forEach((c) => { %><li><%- include('../partials/icon', { name: 'check' }) %><%= c %></li><% }) %>
+      </ul>
+    </div>
+    <div style="display:grid;gap:1.5rem;align-content:start">
+      <h2 class="h2"><%= W.excludeTitle %></h2>
+      <ul class="check-list check-list--x">
+        <% W.exclude.forEach((c) => { %><li><%- include('../partials/icon', { name: 'x' }) %><%= c %></li><% }) %>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><h2 class="h2"><%= W.servicesTitle %></h2></div>
+    <div class="cards-3">
+      <% W.services.forEach((s, i) => { %>
+      <div class="card reveal" style="--d:<%= i %>">
+        <%- include('../partials/icon', { name: ['tool', 'shield', 'sparkle'][i], cls: 'tech-item__icon' }) %>
+        <h3 class="h3"><%= s.title %></h3>
+        <p><%= s.text %></p>
+      </div>
+      <% }) %>
+    </div>
+    <div style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <a class="btn btn--gold" href="<%= url('/contact') %>"><%= W.claim %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+      <a class="btn" href="<%= site.hotlineHref %>">Hotline <%= site.hotline %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

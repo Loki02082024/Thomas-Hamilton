@@ -1,0 +1,31 @@
+<%- include('_top', { title: 'Tin nhắn' }) %>
+<% const fmt = (iso) => iso ? new Date(iso).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : ''; %>
+<div class="a-toolbar"><h1>Tin nhắn & đăng ký nhận tin</h1></div>
+
+<% if (!messages.length) { %>
+<p class="a-empty">Chưa có tin nhắn nào.</p>
+<% } else { %>
+<div class="a-list">
+  <% messages.forEach((m) => { %>
+  <article class="a-card a-msg<%= m.status === 'new' ? ' is-new' : '' %>">
+    <header>
+      <span class="a-tag"><%= m.type === 'newsletter' ? 'Đăng ký nhận tin' : (m.subject || 'Liên hệ') %></span>
+      <small><%= fmt(m.createdAt) %> · <%= (m.lang || 'vi').toUpperCase() %></small>
+    </header>
+    <% if (m.type === 'newsletter') { %>
+      <p><a href="mailto:<%= m.email %>"><%= m.email %></a></p>
+    <% } else { %>
+      <p><strong><%= m.name %></strong> · <a href="mailto:<%= m.email %>"><%= m.email %></a><% if (m.phone) { %> · <a href="tel:<%= m.phone %>"><%= m.phone %></a><% } %></p>
+      <p class="a-msg-body"><%= m.message %></p>
+    <% } %>
+    <footer>
+      <% if (m.status === 'new') { %>
+      <form method="post" action="/admin/messages/<%= m.id %>/read"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="a-btn a-btn--sm a-btn--ghost">Đánh dấu đã đọc</button></form>
+      <% } %>
+      <form method="post" action="/admin/messages/<%= m.id %>/delete" data-confirm="Xoá tin nhắn này?"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="a-btn a-btn--sm a-btn--danger">Xoá</button></form>
+    </footer>
+  </article>
+  <% }) %>
+</div>
+<% } %>
+<%- include('_bottom') %>

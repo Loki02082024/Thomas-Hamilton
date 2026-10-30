@@ -1,0 +1,52 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.story.eyebrow, title: t.story.title, intro: t.story.intro, crumbs: [{ label: t.nav.story }] }) %>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="timeline">
+      <% t.story.timeline.forEach((it) => { %>
+      <div class="timeline__item reveal">
+        <span class="timeline__year"><%= it.year %></span>
+        <h2 class="h3"><%= it.title %></h2>
+        <p class="muted"><%= it.text %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container big-quote">
+    <span class="eyebrow eyebrow--plain">— <%= site.founded %> —</span>
+    <blockquote class="reveal"><%= t.story.quote %></blockquote>
+    <cite><%= t.story.quoteBy %></cite>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head"><h2 class="h2"><%= t.story.valuesTitle %></h2></div>
+    <div class="values">
+      <% t.story.values.forEach((v, i) => { %>
+      <div class="value reveal" style="--d:<%= i %>">
+        <h3 class="h3"><%= v.title %></h3>
+        <p><%= v.text %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div class="cta-band__copy">
+        <span class="eyebrow"><%= t.nav.showrooms %></span>
+        <h2 class="h2"><%= t.home.ctaTitle %></h2>
+      </div>
+      <a class="btn btn--gold" href="<%= url('/showrooms') %>"><%= t.nav.showrooms %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

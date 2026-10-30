@@ -1,0 +1,81 @@
+<%- include('_top', { title: product && product.id ? 'Sửa ' + product.name : 'Thêm sản phẩm' }) %>
+<%
+const p = product || { specs: {}, colors: [], highlights: [], status: 'published', accent: '#C9A96E' };
+const v = (obj, l) => (obj && typeof obj === 'object' ? obj[l] || '' : obj || '');
+const specLabels = { programs: 'Chương trình tự động', rollers: 'Công nghệ con lăn', track: 'Ray massage', zeroGravity: 'Zero Gravity', airbags: 'Số túi khí', heat: 'Liệu pháp nhiệt', dimensions: 'Kích thước', weight: 'Trọng lượng', power: 'Nguồn điện', warranty: 'Bảo hành' };
+const action = p.id ? '/admin/products/' + p.id : '/admin/products';
+%>
+<div class="a-toolbar">
+  <h1><%= p.id ? 'Sửa: ' + p.name : 'Thêm sản phẩm' %></h1>
+  <a href="/admin/products">← Danh sách</a>
+</div>
+<% if (error) { %><p class="a-alert" role="alert"><%= error %></p><% } %>
+
+<form class="a-form a-card" method="post" action="<%= action %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+  <fieldset>
+    <legend>Thông tin chung</legend>
+    <div class="a-grid a-grid--3">
+      <label>Tên sản phẩm * <input name="name" required value="<%= p.name || '' %>"></label>
+      <label>Slug (URL) <input name="slug" value="<%= p.slug || '' %>" placeholder="tự tạo từ tên"></label>
+      <label>Dòng (Series) <input name="series" value="<%= p.series || '' %>" placeholder="Signature / Heritage / Atelier"></label>
+      <label>Giá (VNĐ) <input name="price" inputmode="numeric" value="<%= p.price || '' %>"></label>
+      <label>Thứ tự hiển thị <input name="order" type="number" value="<%= p.order || 0 %>"></label>
+      <label>Màu nhấn <input name="accent" type="color" value="<%= p.accent || '#C9A96E' %>"></label>
+      <label>Trạng thái
+        <select name="status"><option value="published"<%= p.status !== 'draft' ? ' selected' : '' %>>Hiển thị</option><option value="draft"<%= p.status === 'draft' ? ' selected' : '' %>>Nháp</option></select>
+      </label>
+      <label>Ảnh sản phẩm (URL hoặc /img/products/...) <input name="image" value="<%= p.image || '' %>" placeholder="Để trống = dùng hình minh hoạ"></label>
+      <label class="a-check"><input type="checkbox" name="featured"<%= p.featured ? ' checked' : '' %>> Nổi bật trên trang chủ</label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Nội dung song ngữ</legend>
+    <div class="a-grid a-grid--2">
+      <label>Nhãn (VI) <input name="badge_vi" value="<%= v(p.badge, 'vi') %>" placeholder="Mới / Bán chạy"></label>
+      <label>Badge (EN) <input name="badge_en" value="<%= v(p.badge, 'en') %>"></label>
+      <label>Khẩu hiệu (VI) <input name="tagline_vi" value="<%= v(p.tagline, 'vi') %>"></label>
+      <label>Tagline (EN) <input name="tagline_en" value="<%= v(p.tagline, 'en') %>"></label>
+      <label>Tóm tắt (VI) <textarea name="summary_vi" rows="3"><%= v(p.summary, 'vi') %></textarea></label>
+      <label>Summary (EN) <textarea name="summary_en" rows="3"><%= v(p.summary, 'en') %></textarea></label>
+      <label>Mô tả (VI) — cách đoạn bằng 1 dòng trống <textarea name="description_vi" rows="8"><%= v(p.description, 'vi') %></textarea></label>
+      <label>Description (EN) <textarea name="description_en" rows="8"><%= v(p.description, 'en') %></textarea></label>
+      <label>Điểm nổi bật (VI) — mỗi dòng 1 ý <textarea name="highlights_vi" rows="4"><%= (p.highlights || []).map((h) => h.vi).join('\n') %></textarea></label>
+      <label>Highlights (EN) — one per line <textarea name="highlights_en" rows="4"><%= (p.highlights || []).map((h) => h.en).join('\n') %></textarea></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Thông số kỹ thuật <small>(để trống cột EN nếu giống VI)</small></legend>
+    <div class="a-spec-grid">
+      <span></span><strong>VI</strong><strong>EN</strong>
+      <% specKeys.forEach((k) => { %>
+      <span><%= specLabels[k] %></span>
+      <input name="spec_<%= k %>_vi" aria-label="<%= specLabels[k] %> VI" value="<%= v((p.specs || {})[k], 'vi') %>">
+      <input name="spec_<%= k %>_en" aria-label="<%= specLabels[k] %> EN" value="<%= typeof (p.specs || {})[k] === 'object' ? (p.specs[k].en || '') : '' %>">
+      <% }) %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Màu sắc</legend>
+    <label>Mỗi dòng: Tên VI | Tên EN | #mã màu
+      <textarea name="colors" rows="4" placeholder="Đen Onyx | Onyx Black | #141312"><%= (p.colors || []).map((c) => `${c.name.vi} | ${c.name.en} | ${c.hex}`).join('\n') %></textarea>
+    </label>
+  </fieldset>
+
+  <div class="a-form-actions">
+    <button class="a-btn" type="submit">Lưu sản phẩm</button>
+    <a class="a-btn a-btn--ghost" href="/admin/products">Huỷ</a>
+  </div>
+</form>
+
+<% if (p.id) { %>
+<form method="post" action="/admin/products/<%= p.id %>/delete" data-confirm="Xoá vĩnh viễn sản phẩm <%= p.name %>?" class="a-danger-zone">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <button class="a-btn a-btn--danger" type="submit">Xoá sản phẩm</button>
+</form>
+<% } %>
+<%- include('_bottom') %>

@@ -1,0 +1,12 @@
+<%- include('../partials/head') %>
+<%- include('../partials/page-hero', { eyebrow: t.journal.eyebrow, title: t.journal.title, intro: t.journal.intro, crumbs: [{ label: t.nav.journal }] }) %>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="grid grid--3">
+      <% posts.forEach((post, i) => { %><%- include('../partials/post-card', { post, i }) %><% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

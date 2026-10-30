@@ -1,0 +1,128 @@
+<%
+locals.jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  brand: { '@type': 'Brand', name: 'THOMAS HAMILTON' },
+  description: tr(product.summary),
+  category: 'Massage chair',
+  offers: { '@type': 'Offer', priceCurrency: 'VND', price: product.price, availability: 'https://schema.org/InStock' },
+};
+const firstColor = (product.colors || [])[0];
+%>
+<%- include('../partials/head') %>
+
+<section class="pdp section" style="--accent: <%= product.accent %>">
+  <div class="container">
+    <nav aria-label="Breadcrumb" style="margin-bottom:2rem">
+      <ol class="breadcrumb">
+        <li><a href="<%= url('/') %>">THOMAS HAMILTON</a></li>
+        <li><a href="<%= url('/collection') %>"><%= t.nav.collection %></a></li>
+        <li><span aria-current="page"><%= product.name %></span></li>
+      </ol>
+    </nav>
+
+    <div class="pdp__grid">
+      <div class="pdp__stage" id="stage">
+        <span class="pdp__stage-label"><%= t.common.series %> <%= product.series %></span>
+        <%- include('../partials/product-visual', { product, uid: 'pdp', eager: true, leather: firstColor && firstColor.hex }) %>
+      </div>
+
+      <div class="pdp__info">
+        <div style="display:grid;gap:1rem">
+          <% if (tr(product.badge)) { %><span class="eyebrow"><%= tr(product.badge) %></span><% } %>
+          <h1 class="h1"><%= product.name %></h1>
+          <p class="serif" style="font-size:1.5rem;font-style:italic;color:var(--gold-2)"><%= tr(product.tagline) %></p>
+          <p class="lead"><%= tr(product.summary) %></p>
+        </div>
+
+        <div class="pdp__price">
+          <small><%= t.common.price %></small>
+          <strong><%= money(product.price) %></strong>
+          <small><%= t.common.vat %></small>
+        </div>
+
+        <% if ((product.colors || []).length) { %>
+        <div class="pdp__colors">
+          <span class="h4"><%= t.common.colors %> — <span class="gold" data-color-name><%= tr(firstColor.name) %></span></span>
+          <div class="color-options" data-colors="#stage" role="group" aria-label="<%= t.common.colors %>">
+            <% product.colors.forEach((c, i) => { %>
+            <button type="button" class="color-option" aria-pressed="<%= i === 0 %>" data-hex="<%= c.hex %>" data-name="<%= tr(c.name) %>">
+              <span class="swatch" style="background: <%= c.hex %>"></span><%= tr(c.name) %>
+            </button>
+            <% }) %>
+          </div>
+        </div>
+        <% } %>
+
+        <div class="pdp__actions">
+          <a class="btn btn--gold" href="<%= url('/book') %>?model=<%= product.slug %>"><%= t.nav.book %></a>
+          <a class="btn" href="<%= site.hotlineHref %>"><%- include('../partials/icon', { name: 'phone' }) %> <%= site.hotline %></a>
+        </div>
+
+        <ul class="perks">
+          <li><%- include('../partials/icon', { name: 'truck' }) %><%= t.product.perks[0] %></li>
+          <li><%- include('../partials/icon', { name: 'card' }) %><%= t.product.perks[1] %></li>
+          <li><%- include('../partials/icon', { name: 'tool' }) %><%= t.product.perks[2] %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container split">
+    <div style="display:grid;gap:1.25rem">
+      <span class="eyebrow"><%= t.product.overview %></span>
+      <h2 class="h2"><%= tr(product.tagline) %></h2>
+    </div>
+    <div style="display:grid;gap:3rem">
+      <div class="prose">
+        <% richText(tr(product.description)).forEach((b) => { %>
+          <% if (b.type === 'h2') { %><h2><%= b.text %></h2><% } else { %><p><%= b.text %></p><% } %>
+        <% }) %>
+      </div>
+      <% if ((product.highlights || []).length) { %>
+      <div style="display:grid;gap:1.25rem">
+        <h3 class="h4 gold"><%= t.product.highlights %></h3>
+        <ul class="highlights">
+          <% product.highlights.forEach((h, i) => { %>
+          <li class="highlight reveal" style="--d:<%= i %>"><span>0<%= i + 1 %></span><%= tr(h) %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div style="display:grid;gap:1.25rem">
+      <span class="eyebrow"><%= t.product.specs %></span>
+      <h2 class="h2"><%= product.name %></h2>
+      <a class="link-arrow" href="<%= url('/compare') %>?m=<%= product.slug %>"><%= t.collection.compareCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+    </div>
+    <table class="spec-table">
+      <caption class="visually-hidden"><%= t.product.specs %> — <%= product.name %></caption>
+      <tbody>
+        <% Object.keys(t.specs).forEach((k) => { if (product.specs && product.specs[k]) { %>
+        <tr><th scope="row"><%= t.specs[k] %></th><td><%= tr(product.specs[k]) %></td></tr>
+        <% } }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<% if (related.length) { %>
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head"><h2 class="h2"><%= t.product.related %></h2></div>
+    <div class="grid grid--3">
+      <% related.forEach((p, i) => { %><%- include('../partials/product-card', { p, i }) %><% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../partials/footer') %>
