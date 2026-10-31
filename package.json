@@ -1,0 +1,34 @@
+{
+  "name": "thomas-hamilton",
+  "version": "2.0.0",
+  "description": "THOMAS HAMILTON — website ghế massage cao cấp phong cách Sumi-e (Express + EJS + MySQL, VI/JA, giỏ hàng, VNPay, admin)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "hash-password": "node scripts/hash-password.js",
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.2",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.9",
+    "ejs": "^7.0.2",
+    "express": "^4.22.3",
+    "express-rate-limit": "^8.7.2",
+    "gsap": "^3.15.0",
+    "helmet": "^8.3.0",
+    "lenis": "^1.3.27",
+    "multer": "^2.5.0",
+    "mysql2": "^3.24.6",
+    "nodemailer": "^10.3.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18.17"
+  }
+}

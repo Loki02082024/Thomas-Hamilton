@@ -1,0 +1,83 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <a class="logo" href="<%= url() %>" aria-label="THOMAS HAMILTON">
+          <%- include('seal', { cls: 'logo__seal', id: 'ftr' }) %>
+          <span class="logo__word">THOMAS HAMILTON<small>MASSAGE · 匠</small></span>
+        </a>
+        <p class="muted" style="margin-top:20px;max-width:30ch"><%= t.footer.tagline %></p>
+        <p><a class="link-brush" href="<%= site.hotlineHref %>"><%- include('icon', { name: 'phone' }) %><%= site.hotline %></a></p>
+      </div>
+      <div>
+        <h2><%= t.footer.explore %></h2>
+        <ul>
+          <li><a href="<%= url('collection') %>"><%= t.nav.collection %></a></li>
+          <li><a href="<%= url('story') %>"><%= t.nav.story %></a></li>
+          <li><a href="<%= url('showrooms') %>"><%= t.nav.showrooms %></a></li>
+          <li><a href="<%= url('contact') %>"><%= t.nav.contact %></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2><%= t.footer.help %></h2>
+        <ul>
+          <% t.policies.items.forEach((p) => { %><li><a href="<%= url('policies') %>#<%= p.id %>"><%= p.t %></a></li><% }) %>
+        </ul>
+      </div>
+      <div>
+        <h2><%= t.footer.newsletter %></h2>
+        <p class="muted" style="font-size:14px"><%= t.footer.newsletterLead %></p>
+        <form class="footer__news" action="<%= url('newsletter') %>" method="post" data-ajax-form>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="sr-only" for="news-email">Email</label>
+          <input id="news-email" type="email" name="email" placeholder="email@domain.com" required autocomplete="email">
+          <button type="submit"><%= t.footer.subscribe %></button>
+        </form>
+        <p class="muted" data-form-status role="status" style="font-size:13px;margin-top:10px"></p>
+        <div class="social" style="margin-top:16px">
+          <a class="icon-btn" href="<%= site.social.facebook %>" target="_blank" rel="noopener" aria-label="Facebook"><%- include('icon', { name: 'facebook' }) %></a>
+          <a class="icon-btn" href="<%= site.social.youtube %>" target="_blank" rel="noopener" aria-label="YouTube"><%- include('icon', { name: 'youtube' }) %></a>
+          <a class="icon-btn" href="<%= site.zalo %>" target="_blank" rel="noopener" aria-label="Zalo"><%- include('icon', { name: 'chat' }) %></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__word" aria-hidden="true">THOMAS HAMILTON</div>
+    <div class="footer__bottom">
+      <span>© <%= new Date().getFullYear() %> <%= site.company %>. <%= t.footer.rights %></span>
+      <span><%= site.headOffice %></span>
+    </div>
+  </div>
+</footer>
+
+<div class="drawer" data-drawer aria-hidden="true">
+  <div class="drawer__scrim" data-drawer-close></div>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+    <div class="drawer__head">
+      <h2 id="drawer-title" class="h-3"><%= t.cart.drawerTitle %></h2>
+      <button class="icon-btn" type="button" data-drawer-close aria-label="<%= t.nav.close %>"><%- include('icon', { name: 'close' }) %></button>
+    </div>
+    <div class="drawer__body" data-drawer-body aria-live="polite"></div>
+    <div class="drawer__foot" data-drawer-foot></div>
+  </aside>
+</div>
+
+<div class="toast" role="status" aria-live="polite" data-toast><%- include('icon', { name: 'check' }) %><span></span></div>
+
+<div class="shoji" data-shoji aria-hidden="true">
+  <div class="shoji__panel shoji__panel--l"></div>
+  <div class="shoji__panel shoji__panel--r"></div>
+  <%- include('seal', { cls: 'shoji__seal', id: 'shoji' }) %>
+</div>
+
+<script type="application/json" id="i18n"><%- JSON.stringify({
+  lang, csrf: csrfToken, base: url(),
+  cart: t.cart, added: t.product.added, error: t.common.error, sent: t.contact.sent, remove: t.cart.remove,
+}).replace(/</g, '\\u003c') %></script>
+<script src="/vendor/gsap/gsap.min.js" defer></script>
+<script src="/vendor/gsap/ScrollTrigger.min.js" defer></script>
+<script src="/vendor/gsap/SplitText.min.js" defer></script>
+<script src="/vendor/lenis/lenis.min.js" defer></script>
+<script src="/js/main.js?v=<%= v %>" defer></script>
+</body>
+</html>

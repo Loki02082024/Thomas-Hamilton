@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title><%= locals.pageTitle || 'Quản trị' %> — THOMAS HAMILTON</title>
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Cormorant+Garamond:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/admin.css?v=<%= v %>">
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <div class="brand">THOMAS HAMILTON<small>QUẢN TRỊ · 管理</small></div>
+    <% [['dashboard', '/admin', 'Tổng quan'], ['orders', '/admin/orders', 'Đơn hàng'], ['products', '/admin/products', 'Sản phẩm'], ['messages', '/admin/messages', 'Liên hệ & đăng ký']].forEach(([k, href, label]) => { %>
+      <a href="<%= href %>"<%- section === k ? ' aria-current="page"' : '' %>><%= label %></a>
+    <% }) %>
+    <a href="/vi" target="_blank" rel="noopener">Xem website ↗</a>
+    <form action="/admin/logout" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button class="btn btn--ghost" type="submit">Đăng xuất</button>
+    </form>
+  </aside>
+  <main>

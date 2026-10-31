@@ -1,0 +1,23 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.cart.title, kanji: '籠' }) %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <% if (!cart.lines.length) { %>
+      <div class="empty">
+        <p><%= t.cart.empty %></p>
+        <a class="btn btn--kin" href="<%= url('collection') %>"><%= t.cart.continue %></a>
+      </div>
+    <% } else { %>
+      <div class="cart-page">
+        <div style="border-top:1px solid var(--line)"><%- include('../partials/cart-lines') %></div>
+        <aside class="summary-box">
+          <%- include('../partials/totals') %>
+          <a class="btn btn--kin btn--block" href="<%= url('checkout') %>"><%= t.cart.checkout %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+          <a class="link-brush" href="<%= url('collection') %>"><%- include('../partials/icon', { name: 'arrow-left' }) %><%= t.cart.continue %></a>
+        </aside>
+      </div>
+    <% } %>
+  </section>
+</main>
+<%- include('../partials/footer') %>

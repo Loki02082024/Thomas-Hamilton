@@ -1,0 +1,14 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.policies.title, kicker: t.policies.kicker, kanji: '約束' }) %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <% t.policies.items.forEach((p) => { %>
+      <div class="policy" id="<%= p.id %>" data-reveal>
+        <h2 class="h-2"><%= p.t %></h2>
+        <p><%= p.d %></p>
+      </div>
+    <% }) %>
+  </section>
+</main>
+<%- include('../partials/footer') %>

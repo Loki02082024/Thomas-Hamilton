@@ -1,0 +1,14 @@
+<%- include('_top', { pageTitle: 'Tổng quan' }) %>
+<h1>Tổng quan</h1>
+<div class="stats">
+  <div class="stat"><span>Đơn mới</span><b><%= stats.newOrders %></b></div>
+  <div class="stat"><span>Doanh thu đã thanh toán (tháng)</span><b><%= money(stats.revenueMonth) %></b></div>
+  <div class="stat"><span>Giá trị đơn đang xử lý</span><b><%= money(stats.pipeline) %></b></div>
+  <div class="stat"><span>Liên hệ chưa xử lý</span><b><%= stats.newMessages %></b></div>
+  <div class="stat"><span>Sản phẩm</span><b><%= stats.products %></b></div>
+</div>
+<div class="panel">
+  <div class="row between"><h2>Đơn hàng gần đây</h2><a href="/admin/orders">Xem tất cả →</a></div>
+  <%- include('_orders-table', { orders: recent }) %>
+</div>
+<%- include('_bottom') %>

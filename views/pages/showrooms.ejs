@@ -1,0 +1,25 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.showrooms.title, kicker: t.showrooms.kicker, lead: t.showrooms.lead, kanji: '展示' }) %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <p class="muted" style="margin-bottom:24px"><%= t.showrooms.hours %> · <a class="gold" href="<%= site.storeHotlineHref %>"><%= site.storeHotline %></a></p>
+    <div class="rooms">
+      <% site.showrooms.forEach((s, i) => { %>
+        <div class="room" data-reveal>
+          <span class="room__n"><%= ['一', '二', '三', '四', '五', '六', '七', '八'][i] || i + 1 %></span>
+          <h3><%= s.name %></h3>
+          <p><%= s.address %></p>
+          <a class="link-brush" href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(s.address) %>" target="_blank" rel="noopener"><%- include('../partials/icon', { name: 'pin' }) %><%= t.showrooms.directions %></a>
+        </div>
+      <% }) %>
+      <div class="room" data-reveal style="background:var(--sumi-2)">
+        <span class="room__n">本</span>
+        <h3><%= t.showrooms.headOffice %></h3>
+        <p><%= site.headOffice %></p>
+        <a class="link-brush" href="<%= url('contact?topic=experience') %>"><%= t.home.heroCta2 %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

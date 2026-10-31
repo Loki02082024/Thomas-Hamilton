@@ -1,0 +1,47 @@
+<%
+const links = [
+  ['collection', t.nav.collection, '品'],
+  ['story', t.nav.story, '道'],
+  ['showrooms', t.nav.showrooms, '館'],
+  ['contact', t.nav.contact, '話'],
+];
+const isCurrent = (k) => basePath === '/' + k || basePath.startsWith('/' + k + '/') || (k === 'collection' && basePath.startsWith('/chair/'));
+%>
+<header class="site-header" data-header>
+  <div class="container">
+    <a class="logo" href="<%= url() %>" aria-label="THOMAS HAMILTON — <%= t.nav.home %>">
+      <%- include('seal', { cls: 'logo__seal', id: 'hdr' }) %>
+      <span class="logo__word">THOMAS HAMILTON<small>MASSAGE · 匠</small></span>
+    </a>
+    <nav class="nav" aria-label="<%= t.nav.menu %>">
+      <% links.forEach(([k, label]) => { %>
+        <a href="<%= url(k) %>"<%- isCurrent(k) ? ' aria-current="page"' : '' %>><%= label %></a>
+      <% }) %>
+    </nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="<%= altPath %>" hreflang="<%= altLang %>" lang="<%= altLang %>"><%= t.nav.switchLang %></a>
+      <a class="icon-btn" href="<%= url('cart') %>" data-cart-open aria-label="<%= t.nav.cart %>">
+        <%- include('icon', { name: 'bag' }) %>
+        <span class="cart-count" data-cart-count data-count="<%= cartCount %>"><%= cartCount %></span>
+      </a>
+      <button class="icon-btn menu-btn" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu" aria-label="<%= t.nav.menu %>">
+        <%- include('icon', { name: 'menu' }) %>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" data-menu aria-label="<%= t.nav.menu %>" role="dialog" aria-modal="true">
+  <button class="icon-btn mobile-menu__close" type="button" data-menu-close aria-label="<%= t.nav.close %>"><%- include('icon', { name: 'close' }) %></button>
+  <nav>
+    <a href="<%= url() %>"><span>00</span><%= t.nav.home %></a>
+    <% links.forEach(([k, label], i) => { %>
+      <a href="<%= url(k) %>"><span>0<%= i + 1 %></span><%= label %></a>
+    <% }) %>
+  </nav>
+  <span class="mobile-menu__kanji tategaki" aria-hidden="true">静</span>
+  <div class="mobile-menu__foot">
+    <a href="<%= site.hotlineHref %>"><%= t.footer.hotline %> · <%= site.hotline %></a>
+    <a class="lang-switch" href="<%= altPath %>" hreflang="<%= altLang %>" lang="<%= altLang %>"><%= t.nav.switchLang %></a>
+  </div>
+</div>

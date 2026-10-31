@@ -1,0 +1,14 @@
+<%
+const id = 'f-' + name;
+const err = errors[name];
+const val = values[name] || '';
+%>
+<div class="field">
+  <label for="<%= id %>"><%= label %><% if (locals.required) { %> <span class="req" aria-hidden="true">*</span><% } %></label>
+  <% if (locals.textarea) { %>
+    <textarea class="input" id="<%= id %>" name="<%= name %>"<%= locals.required ? ' required' : '' %><%- err ? ` aria-invalid="true" aria-describedby="${id}-err"` : '' %>><%= val %></textarea>
+  <% } else { %>
+    <input class="input" id="<%= id %>" name="<%= name %>" type="<%= locals.type || 'text' %>" value="<%= val %>"<%= locals.required ? ' required' : '' %><%- locals.autocomplete ? ` autocomplete="${autocomplete}"` : '' %><%- locals.inputmode ? ` inputmode="${inputmode}"` : '' %><%- err ? ` aria-invalid="true" aria-describedby="${id}-err"` : '' %>>
+  <% } %>
+  <% if (err) { %><p class="field__error" id="<%= id %>-err"><%= err %></p><% } %>
+</div>

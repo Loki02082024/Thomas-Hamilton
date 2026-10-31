@@ -1,0 +1,22 @@
+<% if (!orders.length) { %>
+  <p class="muted">Chưa có đơn hàng nào.</p>
+<% } else { %>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Tổng</th><th>Thanh toán</th><th>Trạng thái</th><th>Ngày</th></tr></thead>
+  <tbody>
+  <% orders.forEach((o) => { %>
+    <tr>
+      <td><a href="/admin/orders/<%= o.code %>"><b><%= o.code %></b></a></td>
+      <td><%= o.customer.name %><br><span class="muted"><%= o.customer.phone %></span></td>
+      <td><%= o.lines.map((l) => l.name + ' ×' + l.qty).join(', ') %></td>
+      <td><%= money(o.total) %></td>
+      <td><%= vi.order.methods[o.payment_method] %><br><span class="pill p-<%= o.payment_status %>"><%= vi.order[o.payment_status] || o.payment_status %></span></td>
+      <td><span class="pill s-<%= o.status %>"><%= vi.order.statuses[o.status] %></span></td>
+      <td class="muted"><%= new Date(o.created_at).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) %></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<% } %>

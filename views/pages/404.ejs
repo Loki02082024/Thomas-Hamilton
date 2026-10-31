@@ -1,0 +1,13 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <section class="hero" style="min-height:80svh">
+    <span class="hero__kanji" aria-hidden="true">無</span>
+    <div class="container" style="position:relative;text-align:center">
+      <span class="eyebrow">404 · 無</span>
+      <h1 class="h-1" style="margin:24px auto;max-width:16em"><%= t.common.notFound %></h1>
+      <a class="btn btn--kin" href="<%= url() %>"><%= t.common.home %></a>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

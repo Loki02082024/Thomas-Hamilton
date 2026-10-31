@@ -1,0 +1,178 @@
+<%- include('../partials/head', { jsonLd: {
+  '@context': 'https://schema.org', '@type': 'Organization', name: 'THOMAS HAMILTON', url: siteUrl,
+  telephone: site.hotline, address: site.headOffice, sameAs: Object.values(site.social),
+} }) %>
+<%- include('../partials/header') %>
+<main id="main">
+
+  <!-- 01 · HERO -->
+  <section class="hero" data-hero>
+    <canvas class="hero__dust" data-dust aria-hidden="true"></canvas>
+    <span class="hero__kanji" aria-hidden="true" data-parallax="-12">癒</span>
+    <span class="hero__aside tategaki" aria-hidden="true">静けさを、手仕事で</span>
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow" data-hero-fade><%= t.home.heroEyebrow %></span>
+        <h1 class="hero__title h-display">
+          <% t.home.heroTitle.forEach((l) => { %><span class="line"><span data-hero-line><%= l %></span></span><% }) %>
+        </h1>
+        <p class="lead" data-hero-fade><%= t.home.heroLead %></p>
+        <div class="hero__actions" data-hero-fade>
+          <a class="btn btn--kin" href="<%= url('collection') %>"><%= t.home.heroCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+          <a class="btn" href="<%= url('contact?topic=experience') %>"><%= t.home.heroCta2 %></a>
+        </div>
+      </div>
+
+      <% if (hero) { %>
+      <figure class="kakejiku" data-kakejiku>
+        <span class="kakejiku__cord" aria-hidden="true"></span>
+        <div class="kakejiku__rod" aria-hidden="true"></div>
+        <div class="kakejiku__paper" data-kakejiku-paper>
+          <span class="kakejiku__poem tategaki" aria-hidden="true">一息の間</span>
+          <div class="kakejiku__art">
+            <svg viewBox="0 0 400 460" role="img" aria-label="<%= hero.name %>" style="width:100%;height:100%;mix-blend-mode:multiply">
+              <defs>
+                <filter id="ink-bleed" x="-20%" y="-20%" width="140%" height="140%">
+                  <feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="4" seed="11" result="n"/>
+                  <feDisplacementMap in="SourceGraphic" in2="n" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+                  <feGaussianBlur stdDeviation="1.2"/>
+                </filter>
+                <mask id="ink-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="460">
+                  <g filter="url(#ink-bleed)" fill="#fff">
+                    <circle data-ink cx="200" cy="250" r="420"/>
+                    <circle data-ink cx="120" cy="160" r="420"/>
+                    <circle data-ink cx="290" cy="330" r="420"/>
+                  </g>
+                </mask>
+              </defs>
+              <image href="<%= hero.images[0] %>" x="0" y="0" width="400" height="460" preserveAspectRatio="xMidYMid meet" mask="url(#ink-mask)"/>
+            </svg>
+          </div>
+          <figcaption class="kakejiku__caption">
+            <span><small><%= hero.brand %></small><b><%= hero.name %></b></span>
+            <%- include('../partials/seal', { cls: 'kakejiku__seal', id: 'kk', seed: 7 }) %>
+          </figcaption>
+        </div>
+        <div class="kakejiku__rod" aria-hidden="true"></div>
+      </figure>
+      <% } %>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><%= t.home.scroll %><i></i></div>
+  </section>
+
+  <!-- 02 · MANIFESTO -->
+  <section class="section manifesto">
+    <div class="container">
+      <svg class="manifesto__enso" viewBox="0 0 200 200" aria-hidden="true">
+        <path data-draw d="M128 26c-38-14-86 4-100 46-13 40 10 86 54 98 42 11 86-12 94-54 6-30-8-58-30-74" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+      <span class="eyebrow" style="margin-top:28px"><%= t.home.manifestoKicker %></span>
+      <p class="manifesto__text" data-words><%= t.home.manifesto %></p>
+    </div>
+  </section>
+
+  <!-- 03 · PILLARS -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="h-1" data-split style="max-width:14em"><%= t.home.pillarsTitle %></h2>
+      <div class="pillars">
+        <% t.home.pillars.forEach((p) => { %>
+          <div class="pillar" data-reveal data-glow>
+            <span class="pillar__k" aria-hidden="true"><%= p.k %></span>
+            <h3><%= p.t %></h3>
+            <p><%= p.d %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · FEATURED (horizontal) -->
+  <section class="section featured" data-hscroll>
+    <div class="container featured__head">
+      <div>
+        <span class="eyebrow"><%= t.home.featuredKicker %></span>
+        <h2 class="h-1" data-split style="margin-top:18px"><%= t.home.featuredTitle %></h2>
+      </div>
+      <p class="muted" style="max-width:28ch"><%= t.home.featuredLead %></p>
+    </div>
+    <div class="featured__track" data-hscroll-track>
+      <% featured.forEach((p) => { %><%- include('../partials/product-card', { p }) %><% }) %>
+      <div class="featured__end">
+        <div>
+          <span class="tategaki gold" style="font-size:40px" aria-hidden="true">全品</span>
+          <p><a class="btn" href="<%= url('collection') %>" style="margin-top:24px"><%= t.home.viewAll %> <%- include('../partials/icon', { name: 'arrow' }) %></a></p>
+        </div>
+      </div>
+    </div>
+    <div class="featured__progress" aria-hidden="true"><i data-hscroll-progress></i></div>
+  </section>
+
+  <!-- 05 · NUMBERS + ENSŌ -->
+  <section class="section">
+    <div class="container numbers">
+      <div class="enso" data-enso>
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <defs>
+            <filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="4"/>
+              <feDisplacementMap in="SourceGraphic" scale="9"/>
+            </filter>
+          </defs>
+          <path data-enso-path filter="url(#brush)" d="M250 52C182 28 92 52 62 128c-30 74 6 168 92 196 86 28 182-12 200-100 12-60-16-118-64-146" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/>
+          <path data-enso-path filter="url(#brush)" d="M262 58c-60-14-140 6-172 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+        </svg>
+        <span class="enso__label"><%= t.home.numbersTitle %></span>
+      </div>
+      <div class="stats">
+        <% t.home.numbers.forEach((n) => { %>
+          <div class="stat" data-reveal>
+            <div class="stat__v"><span data-count-to="<%= n.v %>"><%= n.v %></span><small><%= n.u %></small></div>
+            <p><%= n.l %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · RITUAL -->
+  <section class="section">
+    <div class="container ritual">
+      <div class="ritual__sticky">
+        <span class="eyebrow"><%= t.home.ritualKicker %></span>
+        <h2 class="h-1" data-split style="margin-top:18px"><%= t.home.ritualTitle %></h2>
+        <% const ritualImg = (featured[1] || hero || {}).images; if (ritualImg) { %>
+          <div class="ritual__img" data-reveal><img src="<%= ritualImg[0] %>" alt="" width="800" height="640" loading="lazy" data-parallax="8"></div>
+        <% } %>
+      </div>
+      <div class="ritual__wrap" data-ritual>
+        <span class="ritual__line" data-ritual-line aria-hidden="true"></span>
+        <ol class="ritual__steps">
+          <% t.home.ritual.forEach((s) => { %>
+            <li data-reveal><h3><%= s.t %></h3><p><%= s.d %></p></li>
+          <% }) %>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · SHOWROOMS -->
+  <section class="section band">
+    <span class="band__kanji" aria-hidden="true">館</span>
+    <div class="container band__inner">
+      <div>
+        <span class="eyebrow"><%= t.showrooms.kicker %></span>
+        <h2 class="h-1" data-split style="margin:18px 0 20px"><%= t.home.showroomTitle %></h2>
+        <p class="lead"><%= t.home.showroomLead %></p>
+        <div class="hero__actions">
+          <a class="btn btn--kin" href="<%= url('contact?topic=experience') %>"><%= t.home.heroCta2 %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+          <a class="btn" href="<%= site.hotlineHref %>"><%- include('../partials/icon', { name: 'phone' }) %> <%= site.hotline %></a>
+        </div>
+      </div>
+      <ul class="band__list">
+        <% site.showrooms.forEach((s) => { %><li data-reveal><b><%= s.name %></b><%= s.address %></li><% }) %>
+      </ul>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

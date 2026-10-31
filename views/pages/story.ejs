@@ -1,0 +1,21 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.story.title, kicker: t.story.kicker, lead: t.story.lead, kanji: '哲学' }) %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <% t.story.blocks.forEach((b) => { %>
+      <div class="story-block" data-reveal>
+        <span class="story-block__k" aria-hidden="true"><%= b.k %></span>
+        <div><h2 class="h-2"><%= b.t %></h2><p><%= b.d %></p></div>
+      </div>
+    <% }) %>
+    <div class="story-block" style="align-items:center">
+      <span></span>
+      <div class="hero__actions" style="margin:0">
+        <a class="btn btn--kin" href="<%= url('collection') %>"><%= t.home.heroCta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+        <a class="btn" href="<%= url('contact?topic=experience') %>"><%= t.home.heroCta2 %></a>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

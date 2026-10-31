@@ -1,0 +1,15 @@
+<section class="page-hero">
+  <div class="container">
+    <nav aria-label="<%= t.common.breadcrumb %>">
+      <ol class="crumbs">
+        <li><a href="<%= url() %>"><%= t.nav.home %></a></li>
+        <% (locals.crumbs || []).forEach(([href, label]) => { %><li><a href="<%= href %>"><%= label %></a></li><% }) %>
+        <li aria-current="page"><%= heading %></li>
+      </ol>
+    </nav>
+    <h1 class="h-1" data-split><%= heading %></h1>
+    <% if (locals.kicker) { %><span class="eyebrow"><%= kicker %></span><% } %>
+    <% if (locals.lead) { %><p class="lead" style="margin-top:20px"><%= lead %></p><% } %>
+  </div>
+  <% if (locals.kanji) { %><span class="page-hero__kanji tategaki" aria-hidden="true"><%= kanji %></span><% } %>
+</section>

@@ -1,0 +1,139 @@
+<%
+const p = product;
+const firstAvail = Math.max(0, p.variants.findIndex((v) => v.available !== false));
+%>
+<%- include('../partials/head', { jsonLd: {
+  '@context': 'https://schema.org', '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand },
+  image: p.images.map((i) => siteUrl + i), description: p.summary, sku: p.model,
+  offers: { '@type': 'Offer', priceCurrency: 'VND', price: p.price, url: siteUrl + url('chair/' + p.slug),
+    availability: 'https://schema.org/' + (p.available ? 'InStock' : 'OutOfStock') },
+} }) %>
+<%- include('../partials/header') %>
+<main id="main" class="pdp">
+  <div class="container">
+    <nav aria-label="<%= t.common.breadcrumb %>" style="margin-bottom:24px">
+      <ol class="crumbs">
+        <li><a href="<%= url() %>"><%= t.nav.home %></a></li>
+        <li><a href="<%= url('collection') %>"><%= t.nav.collection %></a></li>
+        <li aria-current="page"><%= p.name %></li>
+      </ol>
+    </nav>
+
+    <div class="pdp__grid">
+      <div class="gallery" data-gallery>
+        <div class="gallery__main" data-gallery-main role="img" aria-label="<%= p.name %>" title="<%= t.product.zoom %>">
+          <img src="<%= p.images[0] %>" alt="<%= p.name %>" width="1000" height="1000" fetchpriority="high">
+          <% if (p.images.length > 1) { %>
+          <div class="gallery__nav">
+            <button type="button" data-gallery-prev aria-label="<%= t.product.prev %>"><%- include('../partials/icon', { name: 'arrow-left' }) %></button>
+            <button type="button" data-gallery-next aria-label="<%= t.product.next %>"><%- include('../partials/icon', { name: 'arrow' }) %></button>
+          </div>
+          <% } %>
+        </div>
+        <% if (p.images.length > 1) { %>
+        <div class="gallery__thumbs" role="group" aria-label="<%= t.product.gallery %>">
+          <% p.images.forEach((img, i) => { %>
+            <button type="button" data-gallery-thumb="<%= img %>" aria-current="<%= i === 0 %>" aria-label="<%= t.product.gallery %> <%= i + 1 %>">
+              <img src="<%= img %>" alt="" width="120" height="120" loading="lazy">
+            </button>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="pdp__info">
+        <span class="pdp__brand"><%= p.brand %> · <%= p.model %></span>
+        <h1 class="pdp__title"><%= p.name %></h1>
+        <p class="pdp__summary"><%= p.summary %></p>
+        <% if (p.features && p.features.length) { %>
+          <ul class="feature-chips"><% p.features.forEach((f) => { %><li><%= t.features[f] %></li><% }) %></ul>
+        <% } %>
+
+        <div class="pdp__price">
+          <b data-price><%= money(p.variants[firstAvail].price) %></b>
+          <% if (p.compare) { %><s><%= money(p.compare) %></s><span class="save"><%= fill(t.product.save, { p: money(p.saving) }) %></span><% } %>
+        </div>
+
+        <% const h = p.highlights || {}; const hl = [['rollers', h.rollers], ['airbags', h.airbags], ['programs', h.programs], ['track', h.track && h.track + 'cm']].filter(([, v]) => v); %>
+        <% if (hl.length) { %>
+          <div class="highlights" style="grid-template-columns:repeat(<%= hl.length %>,1fr)">
+            <% hl.forEach(([k, v]) => { %><div><b><%= v %></b><span><%= t.product[k] %></span></div><% }) %>
+          </div>
+        <% } %>
+
+        <form action="<%= url('cart/add') %>" method="post" data-add-to-cart>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="slug" value="<%= p.slug %>">
+          <% if (p.variants.length > 1 || p.variants[0].name) { %>
+          <fieldset class="fieldset">
+            <legend><%= t.product.color %></legend>
+            <div class="swatches">
+              <% p.variants.forEach((v, i) => { %>
+                <label class="swatch">
+                  <input type="radio" name="variant" value="<%= i %>" data-variant-price="<%= money(v.price) %>"<%= i === firstAvail ? ' checked' : '' %><%= v.available === false ? ' disabled' : '' %>>
+                  <span><%= colorName(v.name) || '—' %></span>
+                </label>
+              <% }) %>
+            </div>
+          </fieldset>
+          <% } else { %><input type="hidden" name="variant" value="0"><% } %>
+
+          <div class="buy-row">
+            <div>
+              <label class="sr-only" for="qty"><%= t.product.qty %></label>
+              <div class="stepper" data-stepper>
+                <button type="button" data-step="-1" aria-label="−"><%- include('../partials/icon', { name: 'minus' }) %></button>
+                <input id="qty" type="number" name="qty" value="1" min="1" max="10" inputmode="numeric">
+                <button type="button" data-step="1" aria-label="+"><%- include('../partials/icon', { name: 'plus' }) %></button>
+              </div>
+            </div>
+            <% if (p.available) { %>
+              <button class="btn btn--kin" type="submit"><%- include('../partials/icon', { name: 'bag' }) %> <%= t.product.addToCart %></button>
+            <% } else { %>
+              <button class="btn" type="button" disabled><%= t.product.outOfStock %></button>
+            <% } %>
+          </div>
+          <% if (p.available) { %>
+            <button class="btn btn--block" type="submit" name="buyNow" value="1" style="margin-top:12px"><%= t.product.buyNow %></button>
+          <% } %>
+        </form>
+
+        <ul class="perks">
+          <% ['truck', 'shield', 'percent', 'refresh'].forEach((ic, i) => { %><li><%- include('../partials/icon', { name: ic }) %><%= t.product.perks[i] %></li><% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container pdp__details">
+      <aside class="pdp__toc">
+        <span class="eyebrow"><%= t.product.specs %></span>
+        <h2 class="h-2" style="margin:16px 0 24px"><%= p.model %></h2>
+        <% if (p.specs.length) { %>
+        <table class="spec-table">
+          <% p.specs.forEach((s) => { %><tr><th scope="row"><%= specKey(s.k) %></th><td><%= s.v %></td></tr><% }) %>
+        </table>
+        <% } %>
+      </aside>
+      <article>
+        <span class="eyebrow"><%= t.product.story %></span>
+        <div style="height:24px"></div>
+        <% if (lang === 'ja') { %><p class="prose-note">製品詳細は現在ベトナム語のみの掲載です。ご不明な点はお気軽にお問い合わせください。</p><% } %>
+        <div class="prose" lang="vi"><%- p.body_vi %></div>
+      </article>
+    </div>
+  </section>
+
+  <% if (related.length) { %>
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="h-1" data-split style="margin-bottom:var(--s-5)"><%= t.product.related %></h2>
+      <div class="grid">
+        <% related.slice(0, 3).forEach((r) => { %><div data-reveal><%- include('../partials/product-card', { p: r }) %></div><% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

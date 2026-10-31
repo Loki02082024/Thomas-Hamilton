@@ -1,0 +1,14 @@
+<%# Red hanko seal — 匠 (takumi). Rough edge comes from an SVG turbulence filter. %>
+<svg class="<%= locals.cls || '' %>" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough-<%= locals.id || 's' %>" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="<%= locals.seed || 3 %>"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.4"/>
+    </filter>
+  </defs>
+  <g filter="url(#rough-<%= locals.id || 's' %>)">
+    <rect x="3" y="3" width="58" height="58" rx="7" fill="#B8322A"/>
+    <rect x="8" y="8" width="48" height="48" rx="3" fill="none" stroke="#F3E9DA" stroke-width="2"/>
+    <text x="32" y="44" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="32" font-weight="600" fill="#F3E9DA">匠</text>
+  </g>
+</svg>

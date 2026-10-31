@@ -1,0 +1,19 @@
+<article class="card" data-tilt>
+  <div class="card__media">
+    <% if (!p.available) { %><span class="card__badge card__badge--out"><%= t.product.outOfStock %></span>
+    <% } else if (p.discount) { %><span class="card__badge">−<%= p.discount %>%</span><% } %>
+    <span class="card__brand"><%= p.brand %></span>
+    <img src="<%= p.images[0] %>" alt="<%= p.name %>" width="600" height="600" loading="lazy" decoding="async">
+    <% if (p.images[1]) { %><img src="<%= p.images[1] %>" alt="" width="600" height="600" loading="lazy" decoding="async"><% } %>
+  </div>
+  <div class="card__body">
+    <div>
+      <h3 class="card__name"><a class="card__link" href="<%= url('chair/' + p.slug) %>"><%= p.name %></a></h3>
+      <span class="card__tags"><%= [p.highlights.rollers, p.highlights.airbags && p.highlights.airbags + ' ' + t.product.airbags.toLowerCase(), p.highlights.track && 'SL ' + p.highlights.track + 'cm'].filter(Boolean).join(' · ') %></span>
+    </div>
+    <div class="card__price">
+      <b><%= money(p.price) %></b>
+      <% if (p.compare) { %><s><%= money(p.compare) %></s><% } %>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,5 @@
+<div class="totals">
+  <div><span><%= t.cart.subtotal %></span><span><%= money(cart.subtotal) %></span></div>
+  <div><span><%= t.cart.shipping %></span><span><%= cart.shipping ? money(cart.shipping) : t.cart.free %></span></div>
+  <div class="grand"><span><%= t.cart.total %></span><b><%= money(cart.total) %></b></div>
+</div>

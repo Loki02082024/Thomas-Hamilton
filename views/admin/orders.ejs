@@ -1,0 +1,8 @@
+<%- include('_top', { pageTitle: 'Đơn hàng' }) %>
+<h1>Đơn hàng</h1>
+<nav class="filters" aria-label="Lọc theo trạng thái">
+  <a href="/admin/orders" aria-current="<%= !status %>">Tất cả</a>
+  <% statuses.forEach((s) => { %><a href="/admin/orders?status=<%= s %>" aria-current="<%= status === s %>"><%= vi.order.statuses[s] %></a><% }) %>
+</nav>
+<div class="panel"><%- include('_orders-table', { orders }) %></div>
+<%- include('_bottom') %>

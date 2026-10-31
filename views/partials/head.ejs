@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="<%= lang %>" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= locals.title || t.meta.title %></title>
+  <meta name="description" content="<%= locals.description || t.meta.description %>">
+  <meta name="theme-color" content="#0B0A09">
+  <link rel="canonical" href="<%= siteUrl %>/<%= lang %><%= basePath %>">
+  <link rel="alternate" hreflang="vi" href="<%= siteUrl %>/vi<%= basePath %>">
+  <link rel="alternate" hreflang="ja" href="<%= siteUrl %>/ja<%= basePath %>">
+  <link rel="alternate" hreflang="x-default" href="<%= siteUrl %>/vi<%= basePath %>">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="THOMAS HAMILTON">
+  <meta property="og:title" content="<%= locals.title || t.meta.title %>">
+  <meta property="og:description" content="<%= locals.description || t.meta.description %>">
+  <meta property="og:image" content="<%= siteUrl %><%= locals.ogImage || '/img/og.jpg' %>">
+  <meta property="og:locale" content="<%= t.locale.replace('-', '_') %>">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Shippori+Mincho:wght@400;600&display=swap<%= lang === 'ja' ? '&family=Noto+Sans+JP:wght@300;400;500' : '' %>">
+  <link rel="stylesheet" href="/css/main.css?v=<%= v %>">
+  <script src="/js/boot.js?v=<%= v %>"></script>
+  <% if (locals.jsonLd) { %><script type="application/ld+json"><%- JSON.stringify(jsonLd).replace(/</g, '\\u003c') %></script><% } %>
+</head>
+<body data-page="<%= locals.page || '' %>">
+<a class="skip" href="#main"><%= t.nav.skip %></a>

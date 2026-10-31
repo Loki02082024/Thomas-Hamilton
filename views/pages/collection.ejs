@@ -1,0 +1,47 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.collection.title, kicker: t.collection.kicker, lead: t.collection.lead, kanji: '品揃' }) %>
+  <%
+    const q = (patch) => {
+      const p = { ...filters, ...patch };
+      const s = Object.entries(p).filter(([k, v]) => v && !(k === 'sort' && v === 'featured')).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+      return url('collection') + (s ? '?' + s : '');
+    };
+    const prices = [['', t.collection.all], ['under20', t.collection.under20], ['20to40', t.collection.r20to40], ['over40', t.collection.over40]];
+  %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <div class="filters">
+      <div style="display:grid;gap:12px">
+        <div class="chips" role="group" aria-label="<%= t.collection.brand %>">
+          <a class="chip" href="<%= q({ brand: '' }) %>" aria-current="<%= !filters.brand %>"><%= t.collection.all %></a>
+          <% brands.forEach((b) => { %><a class="chip" href="<%= q({ brand: b }) %>" aria-current="<%= filters.brand === b %>"><%= b %></a><% }) %>
+        </div>
+        <div class="chips" role="group" aria-label="<%= t.collection.priceRange %>">
+          <% prices.slice(1).forEach(([k, label]) => { %><a class="chip" href="<%= q({ price: filters.price === k ? '' : k }) %>" aria-current="<%= filters.price === k %>"><%= label %></a><% }) %>
+        </div>
+      </div>
+      <form class="filters__sort" method="get" action="<%= url('collection') %>" data-autosubmit>
+        <% if (filters.brand) { %><input type="hidden" name="brand" value="<%= filters.brand %>"><% } %>
+        <% if (filters.price) { %><input type="hidden" name="price" value="<%= filters.price %>"><% } %>
+        <span class="count"><%= fill(t.collection.count, { n: products.length }) %></span>
+        <label for="sort" class="sr-only"><%= t.collection.sort %></label>
+        <select class="select" id="sort" name="sort">
+          <% [['featured', t.collection.sortFeatured], ['price-asc', t.collection.sortPriceAsc], ['price-desc', t.collection.sortPriceDesc], ['name', t.collection.sortName]].forEach(([k, l]) => { %>
+            <option value="<%= k %>"<%= filters.sort === k ? ' selected' : '' %>><%= l %></option>
+          <% }) %>
+        </select>
+        <noscript><button class="btn" type="submit"><%= t.collection.filterApply %></button></noscript>
+      </form>
+    </div>
+
+    <% if (!products.length) { %>
+      <p class="empty"><%= t.collection.empty %></p>
+    <% } else { %>
+      <div class="grid">
+        <% products.forEach((p) => { %><div data-reveal><%- include('../partials/product-card', { p }) %></div><% }) %>
+      </div>
+    <% } %>
+  </section>
+</main>
+<%- include('../partials/footer') %>

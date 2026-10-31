@@ -1,0 +1,22 @@
+<%- include('_top', { pageTitle: 'Sản phẩm' }) %>
+<div class="row between"><h1>Sản phẩm</h1><a class="btn btn--kin" href="/admin/products/new">+ Thêm sản phẩm</a></div>
+<% if (saved) { %><div class="ok" role="status">Đã lưu.</div><% } %>
+<div class="panel table-wrap">
+  <table>
+    <thead><tr><th></th><th>Tên</th><th>Thương hiệu</th><th>Giá</th><th>Giá gốc</th><th>Hiển thị</th><th>Thứ tự</th></tr></thead>
+    <tbody>
+      <% products.forEach((p) => { %>
+        <tr>
+          <td><img class="thumb" src="<%= p.images[0] %>" alt=""></td>
+          <td><a href="/admin/products/<%= p.slug %>"><b><%= p.name %></b></a><br><span class="muted"><%= p.slug %></span></td>
+          <td><%= p.brand %></td>
+          <td><%= money(p.price) %></td>
+          <td class="muted"><%= p.compare ? money(p.compare) : '—' %></td>
+          <td><%= p.active === false ? 'Ẩn' : 'Hiện' %><%= p.featured ? ' · ★ Nổi bật' : '' %><%= p.available === false ? ' · Hết hàng' : '' %></td>
+          <td class="muted"><%= p.sort %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('_bottom') %>

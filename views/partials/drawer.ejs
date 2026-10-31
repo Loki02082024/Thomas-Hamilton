@@ -1,0 +1,13 @@
+<template data-part="body">
+  <% if (!cart.lines.length) { %><p class="empty" style="padding:48px 0"><%= t.cart.empty %></p><% } else { %><%- include('cart-lines') %><% } %>
+</template>
+<template data-part="foot">
+  <% if (cart.lines.length) { %>
+    <%- include('totals') %>
+    <a class="btn btn--kin btn--block" href="<%= url('checkout') %>"><%= t.cart.checkout %></a>
+    <a class="btn btn--block" href="<%= url('cart') %>"><%= t.cart.viewCart %></a>
+  <% } else { %>
+    <a class="btn btn--kin btn--block" href="<%= url('collection') %>"><%= t.cart.continue %></a>
+  <% } %>
+</template>
+<template data-part="count"><%= cart.count %></template>

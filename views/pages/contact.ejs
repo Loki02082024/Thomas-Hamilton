@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.contact.title, kicker: t.contact.kicker, lead: t.contact.lead, kanji: '便り' }) %>
+  <section class="container contact-grid" style="padding-bottom:var(--s-7)">
+    <div class="contact-lines">
+      <div><span class="eyebrow"><%= t.contact.sales %></span><p style="margin-top:12px"><a class="big" href="<%= site.hotlineHref %>"><%= site.hotline %></a></p></div>
+      <div><span class="eyebrow"><%= t.contact.support %></span><p style="margin-top:12px"><a class="big" href="<%= site.storeHotlineHref %>"><%= site.storeHotline %></a></p></div>
+      <div><span class="eyebrow">Email</span><p style="margin-top:12px"><a class="big" style="font-size:clamp(22px,2.2vw,30px)" href="mailto:<%= site.email %>"><%= site.email %></a></p></div>
+      <div><span class="eyebrow"><%= t.showrooms.headOffice %></span><p class="muted" style="margin-top:12px"><%= site.headOffice %></p></div>
+    </div>
+
+    <div>
+      <div class="form-ok" role="status" data-form-ok <%= sent ? '' : 'hidden' %>><%- include('../partials/icon', { name: 'check' }) %><span><%= t.contact.sent %></span></div>
+      <form class="form" action="<%= url('contact') %>" method="post" novalidate data-contact <%= sent ? 'hidden' : '' %>>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="product" value="<%= values.product || '' %>">
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form__row">
+          <%- include('../partials/field', { name: 'name', label: t.contact.name, required: true, autocomplete: 'name' }) %>
+          <%- include('../partials/field', { name: 'phone', label: t.contact.phone, required: true, type: 'tel', autocomplete: 'tel', inputmode: 'tel' }) %>
+        </div>
+        <%- include('../partials/field', { name: 'email', label: t.contact.email, type: 'email', autocomplete: 'email' }) %>
+        <div class="field">
+          <label for="f-topic"><%= t.contact.topic %></label>
+          <select class="select input" id="f-topic" name="topic" data-topic>
+            <% Object.entries(t.contact.topics).forEach(([k, l]) => { %><option value="<%= k %>"<%= values.topic === k ? ' selected' : '' %>><%= l %></option><% }) %>
+          </select>
+        </div>
+        <div class="form__row" data-experience-only>
+          <div class="field">
+            <label for="f-showroom"><%= t.contact.showroom %></label>
+            <select class="select input" id="f-showroom" name="showroom">
+              <option value="">—</option>
+              <% site.showrooms.forEach((s) => { %><option<%= values.showroom === s.name ? ' selected' : '' %>><%= s.name %></option><% }) %>
+            </select>
+          </div>
+          <%- include('../partials/field', { name: 'date', label: t.contact.date, type: 'date' }) %>
+        </div>
+        <%- include('../partials/field', { name: 'message', label: t.contact.message, textarea: true }) %>
+        <button class="btn btn--kin" type="submit" data-submit style="justify-self:start"><%= t.contact.send %> <%- include('../partials/icon', { name: 'arrow' }) %></button>
+      </form>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

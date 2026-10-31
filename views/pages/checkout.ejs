@@ -1,0 +1,55 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <%- include('../partials/page-hero', { heading: t.checkout.title, crumbs: [[url('cart'), t.cart.title]], kanji: '注文' }) %>
+  <section class="container" style="padding-bottom:var(--s-7)">
+    <form class="cart-page" action="<%= url('checkout') %>" method="post" novalidate data-checkout>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="form">
+        <% if (Object.keys(errors).length) { %>
+          <div class="form-alert" role="alert" tabindex="-1" data-error-summary><%= t.checkout.errorSummary %><%= errors.cart ? ' — ' + errors.cart : '' %></div>
+        <% } %>
+        <h2 class="h-3"><%= t.checkout.contact %></h2>
+        <div class="form__row">
+          <%- include('../partials/field', { name: 'name', label: t.checkout.name, required: true, autocomplete: 'name' }) %>
+          <%- include('../partials/field', { name: 'phone', label: t.checkout.phone, required: true, type: 'tel', autocomplete: 'tel', inputmode: 'tel' }) %>
+        </div>
+        <%- include('../partials/field', { name: 'email', label: t.checkout.email, type: 'email', autocomplete: 'email' }) %>
+        <div class="form__row">
+          <%- include('../partials/field', { name: 'address', label: t.checkout.address, required: true, autocomplete: 'street-address' }) %>
+          <%- include('../partials/field', { name: 'city', label: t.checkout.city, required: true, autocomplete: 'address-level1' }) %>
+        </div>
+        <%- include('../partials/field', { name: 'note', label: t.checkout.note, textarea: true }) %>
+
+        <fieldset class="fieldset" style="margin-top:12px">
+          <legend class="h-3" style="text-transform:none;letter-spacing:0;color:var(--washi);margin-bottom:16px"><%= t.checkout.payment %></legend>
+          <div class="pay-options">
+            <% methods.forEach((m) => { %>
+              <label class="pay-option">
+                <input type="radio" name="payment" value="<%= m %>"<%= (values.payment || 'cod') === m ? ' checked' : '' %>>
+                <span><b><%= t.checkout[m] %></b><small><%= t.checkout[m + 'Desc'] %></small></span>
+              </label>
+            <% }) %>
+          </div>
+        </fieldset>
+      </div>
+
+      <aside class="summary-box">
+        <h2 class="h-3"><%= t.checkout.summary %></h2>
+        <div>
+          <% cart.lines.forEach((l) => { %>
+            <div class="line-item" style="grid-template-columns:64px 1fr auto">
+              <span class="line-item__img"><img src="<%= l.image %>" alt="" width="80" height="80" loading="lazy"></span>
+              <div><div class="line-item__name" style="font-size:17px"><%= l.name %></div><div class="line-item__meta"><%= l.variant ? colorName(l.variant) + ' · ' : '' %>× <%= l.qty %></div></div>
+              <div class="line-item__price"><%= money(l.total) %></div>
+            </div>
+          <% }) %>
+        </div>
+        <%- include('../partials/totals') %>
+        <button class="btn btn--kin btn--block" type="submit" data-submit><%= t.checkout.place %></button>
+        <p class="muted" style="display:flex;gap:10px;font-size:13px;margin:0"><span style="width:16px;flex:none;color:var(--kin)"><%- include('../partials/icon', { name: 'lock' }) %></span><%= t.checkout.secure %></p>
+      </aside>
+    </form>
+  </section>
+</main>
+<%- include('../partials/footer') %>

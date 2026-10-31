@@ -1,0 +1,22 @@
+<% cart.lines.forEach((l) => { %>
+  <div class="line-item">
+    <a class="line-item__img" href="<%= url('chair/' + l.slug) %>"><img src="<%= l.image %>" alt="" width="120" height="120" loading="lazy"></a>
+    <div>
+      <a class="line-item__name" href="<%= url('chair/' + l.slug) %>"><%= l.name %></a>
+      <div class="line-item__meta"><%= l.variant ? colorName(l.variant) + ' · ' : '' %><%= money(l.price) %></div>
+      <form class="line-item__actions" action="<%= url('cart/update') %>" method="post" data-cart-update>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="slug" value="<%= l.slug %>">
+        <input type="hidden" name="variant" value="<%= l.variantIndex %>">
+        <div class="stepper" data-stepper>
+          <button type="button" data-step="-1" aria-label="−"><%- include('icon', { name: 'minus' }) %></button>
+          <input type="number" name="qty" value="<%= l.qty %>" min="0" max="10" aria-label="<%= t.product.qty %>">
+          <button type="button" data-step="1" aria-label="+"><%- include('icon', { name: 'plus' }) %></button>
+        </div>
+        <noscript><button class="text-btn" type="submit"><%= t.cart.update %></button></noscript>
+        <button class="text-btn" type="submit" name="remove" value="1"><%= t.cart.remove %></button>
+      </form>
+    </div>
+    <div class="line-item__price"><%= money(l.total) %></div>
+  </div>
+<% }) %>

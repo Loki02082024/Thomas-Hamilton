@@ -1,0 +1,27 @@
+<%- include('_top', { pageTitle: 'Liên hệ' }) %>
+<h1>Liên hệ & đăng ký nhận tin</h1>
+<div class="panel table-wrap">
+  <% if (!messages.length) { %><p class="muted">Chưa có liên hệ nào.</p><% } else { %>
+  <table>
+    <thead><tr><th>Ngày</th><th>Loại</th><th>Khách</th><th>Nội dung</th><th>Trạng thái</th></tr></thead>
+    <tbody>
+      <% messages.forEach((m) => { %>
+        <tr>
+          <td class="muted"><%= new Date(m.created_at).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) %></td>
+          <td><%= m.kind === 'newsletter' ? 'Nhận tin' : m.topicLabel %></td>
+          <td><%= m.name %><% if (m.phone) { %><br><a href="tel:<%= m.phone.replace(/[^\d+]/g, '') %>"><%= m.phone %></a><% } %><% if (m.email) { %><br><a href="mailto:<%= m.email %>"><%= m.email %></a><% } %></td>
+          <td style="max-width:420px"><% if (m.showroom || m.date) { %><span class="muted">Showroom: <%= m.showroom || '—' %> · Ngày: <%= m.date || '—' %></span><br><% } %><% if (m.product) { %><span class="muted">SP: <%= m.product %></span><br><% } %><%= m.message %></td>
+          <td>
+            <form method="post" action="/admin/messages/<%= m.id %>">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="hidden" name="status" value="<%= m.status === 'done' ? 'new' : 'done' %>">
+              <button class="btn" type="submit"><%= m.status === 'done' ? '✓ Đã xử lý' : 'Đánh dấu đã xử lý' %></button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('_bottom') %>

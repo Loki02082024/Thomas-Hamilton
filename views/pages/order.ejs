@@ -1,0 +1,58 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<main id="main">
+  <section class="section" style="padding-top:calc(var(--header-h) + 80px)">
+    <div class="container">
+      <div class="order-card" data-reveal>
+        <%- include('../partials/seal', { cls: 'order-card__seal', id: 'order', seed: 9 }) %>
+        <span class="eyebrow"><%= t.order.code %> · <%= order.code %></span>
+        <h1 class="h-2" style="margin:18px 0 12px"><%= t.order.thanks %></h1>
+        <p class="muted"><%= t.order.next %></p>
+
+        <div class="order-meta">
+          <div><span><%= t.order.status %></span><b><%= t.order.statuses[order.status] || order.status %></b></div>
+          <div><span><%= t.checkout.payment %></span><b><%= t.order.methods[order.payment_method] %></b></div>
+          <div><span><%= t.order.payment %></span><b class="pill pill--<%= order.payment_status %>"><%= t.order[order.payment_status] || order.payment_status %></b></div>
+        </div>
+
+        <% order.lines.forEach((l) => { %>
+          <div class="line-item" style="grid-template-columns:64px 1fr auto">
+            <span class="line-item__img"><img src="<%= l.image %>" alt="" width="80" height="80"></span>
+            <div><div class="line-item__name" style="font-size:18px"><%= l.name %></div><div class="line-item__meta"><%= l.variant ? colorName(l.variant) + ' · ' : '' %>× <%= l.qty %></div></div>
+            <div class="line-item__price"><%= money(l.total) %></div>
+          </div>
+        <% }) %>
+        <div style="margin-top:20px"><%- include('../partials/totals', { cart: order }) %></div>
+
+        <% if (order.payment_method === 'bank' && order.payment_status !== 'paid' && bank.enabled) { %>
+          <div class="bank">
+            <% if (bank.bin) { %>
+              <img src="https://img.vietqr.io/image/<%= encodeURIComponent(bank.bin) %>-<%= encodeURIComponent(bank.account) %>-compact2.png?amount=<%= order.total %>&addInfo=<%= encodeURIComponent(order.code) %>&accountName=<%= encodeURIComponent(bank.holder || '') %>" alt="VietQR <%= order.code %>" width="200" height="200" loading="lazy">
+            <% } %>
+            <div>
+              <h2 class="h-3" style="margin-bottom:14px"><%= t.order.bankTitle %></h2>
+              <dl>
+                <dt><%= t.order.bankName %></dt><dd><%= bank.name %></dd>
+                <dt><%= t.order.account %></dt><dd><b><%= bank.account %></b></dd>
+                <dt><%= t.order.holder %></dt><dd><%= bank.holder %></dd>
+                <dt><%= t.order.amount %></dt><dd class="gold"><%= money(order.total) %></dd>
+                <dt><%= t.order.bankNote %></dt><dd><b><%= order.code %></b></dd>
+              </dl>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (order.payment_method === 'vnpay' && order.payment_status !== 'paid' && vnpayOn) { %>
+          <form action="<%= url('order/' + order.code + '/pay') %>" method="post" style="margin-top:28px">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <% if (order.payment_status === 'failed') { %><p class="field__error"><%= t.order.failed %></p><% } %>
+            <button class="btn btn--kin" type="submit"><%= t.order.retry %></button>
+          </form>
+        <% } %>
+
+        <p style="margin-top:32px"><a class="link-brush" href="<%= url('collection') %>"><%- include('../partials/icon', { name: 'arrow-left' }) %><%= t.cart.continue %></a></p>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer') %>

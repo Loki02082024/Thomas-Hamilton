@@ -1,0 +1,41 @@
+<%- include('_top', { pageTitle: 'Đơn ' + order.code }) %>
+<p><a href="/admin/orders">← Danh sách đơn</a></p>
+<h1>Đơn hàng <%= order.code %></h1>
+<% if (saved) { %><div class="ok" role="status">Đã lưu thay đổi.</div><% } %>
+<div class="grid2">
+  <div class="panel">
+    <h2>Khách hàng</h2>
+    <p><b><%= order.customer.name %></b><br>
+      <a href="tel:<%= order.customer.phone.replace(/[^\d+]/g, '') %>"><%= order.customer.phone %></a>
+      <% if (order.customer.email) { %> · <a href="mailto:<%= order.customer.email %>"><%= order.customer.email %></a><% } %><br>
+      <%= order.customer.address %>, <%= order.customer.city %></p>
+    <% if (order.customer.note) { %><p class="muted">Ghi chú: <%= order.customer.note %></p><% } %>
+    <p class="muted">Đặt lúc <%= new Date(order.created_at).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) %> · Ngôn ngữ: <%= order.lang %></p>
+    <% if (order.vnpay) { %><p class="muted">VNPay: mã GD <%= order.vnpay.txn %> · NH <%= order.vnpay.bank %> · mã phản hồi <%= order.vnpay.code %></p><% } %>
+  </div>
+  <form class="panel" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <h2>Xử lý</h2>
+    <div class="grid2">
+      <div class="field"><label for="status">Trạng thái đơn</label>
+        <select id="status" name="status"><% statuses.forEach((s) => { %><option value="<%= s %>"<%= order.status === s ? ' selected' : '' %>><%= vi.order.statuses[s] %></option><% }) %></select></div>
+      <div class="field"><label for="payment_status">Thanh toán (<%= vi.order.methods[order.payment_method] %>)</label>
+        <select id="payment_status" name="payment_status"><% payments.forEach((s) => { %><option value="<%= s %>"<%= order.payment_status === s ? ' selected' : '' %>><%= vi.order[s] || 'Đã hoàn tiền' %></option><% }) %></select></div>
+    </div>
+    <div class="field"><label for="admin_note">Ghi chú nội bộ</label><textarea id="admin_note" name="admin_note"><%= order.admin_note || '' %></textarea></div>
+    <button class="btn btn--kin" type="submit">Lưu</button>
+  </form>
+</div>
+<div class="panel">
+  <h2>Sản phẩm</h2>
+  <table>
+    <thead><tr><th></th><th>Sản phẩm</th><th>Màu</th><th>Đơn giá</th><th>SL</th><th>Thành tiền</th></tr></thead>
+    <tbody>
+      <% order.lines.forEach((l) => { %>
+        <tr><td><img class="thumb" src="<%= l.image %>" alt=""></td><td><a href="/vi/chair/<%= l.slug %>" target="_blank" rel="noopener"><%= l.name %></a></td><td><%= l.variant || '—' %></td><td><%= money(l.price) %></td><td><%= l.qty %></td><td><%= money(l.total) %></td></tr>
+      <% }) %>
+      <tr><td colspan="5" style="text-align:right">Tổng cộng</td><td><b><%= money(order.total) %></b></td></tr>
+    </tbody>
+  </table>
+</div>
+<%- include('_bottom') %>

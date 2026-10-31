@@ -1,0 +1,70 @@
+<%- include('_top', { pageTitle: isNew ? 'Thêm sản phẩm' : p.name }) %>
+<p><a href="/admin/products">← Danh sách sản phẩm</a></p>
+<h1><%= isNew ? 'Thêm sản phẩm' : p.name %></h1>
+<% if (error) { %><div class="alert" role="alert"><%= error %></div><% } %>
+<form method="post" enctype="multipart/form-data" action="<%= isNew ? '/admin/products/new' : '/admin/products/' + p.slug %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="panel">
+    <h2>Thông tin chính</h2>
+    <div class="grid2">
+      <div class="field"><label for="name">Tên sản phẩm *</label><input id="name" type="text" name="name" value="<%= p.name %>" required></div>
+      <div class="field"><label for="slug">Đường dẫn (slug)</label><input id="slug" type="text" name="slug" value="<%= p.slug %>"><div class="hint">Để trống sẽ tự tạo từ tên. URL: /vi/chair/<b><%= p.slug || '…' %></b></div></div>
+      <div class="field"><label for="model">Model</label><input id="model" type="text" name="model" value="<%= p.model %>"></div>
+      <div class="field"><label for="brand">Thương hiệu</label><input id="brand" type="text" name="brand" value="<%= p.brand %>"></div>
+    </div>
+    <div class="field">
+      <label for="variants">Màu sắc & giá — mỗi dòng: <code>Tên màu | Giá bán | Giá gốc</code> (dùng <code>-</code> nếu không có màu)</label>
+      <textarea id="variants" name="variants" style="min-height:90px"><%= p.variants.map((v) => `${v.name || '-'} | ${v.price} | ${v.compare || 0}`).join('\n') %></textarea>
+    </div>
+    <div class="row">
+      <label class="check"><input type="checkbox" name="active"<%= p.active !== false ? ' checked' : '' %>> Hiển thị trên website</label>
+      <label class="check"><input type="checkbox" name="available"<%= p.available !== false ? ' checked' : '' %>> Còn hàng</label>
+      <label class="check"><input type="checkbox" name="featured"<%= p.featured ? ' checked' : '' %>> Nổi bật (trang chủ)</label>
+      <div style="width:120px"><label for="sort">Thứ tự</label><input id="sort" type="number" name="sort" value="<%= p.sort %>" min="0"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Hình ảnh</h2>
+    <div class="field">
+      <label for="images">Đường dẫn ảnh — mỗi dòng một ảnh, ảnh đầu tiên là ảnh đại diện</label>
+      <textarea id="images" name="images"><%= p.images.join('\n') %></textarea>
+      <div class="imgs"><% p.images.forEach((i) => { %><img src="<%= i %>" alt=""><% }) %></div>
+    </div>
+    <div class="field"><label for="uploads">Tải ảnh mới lên (JPG/PNG/WebP, tối đa 8MB/ảnh) — được thêm vào cuối danh sách</label><input id="uploads" type="file" name="uploads" accept="image/jpeg,image/png,image/webp,image/avif" multiple></div>
+  </div>
+
+  <div class="panel">
+    <h2>Điểm nổi bật & tính năng</h2>
+    <div class="grid4">
+      <div class="field"><label for="h_rollers">Con lăn (vd. 4D)</label><input id="h_rollers" type="text" name="h_rollers" value="<%= p.highlights.rollers || '' %>"></div>
+      <div class="field"><label for="h_airbags">Số túi khí</label><input id="h_airbags" type="number" name="h_airbags" value="<%= p.highlights.airbags || '' %>"></div>
+      <div class="field"><label for="h_programs">Số chương trình</label><input id="h_programs" type="number" name="h_programs" value="<%= p.highlights.programs || '' %>"></div>
+      <div class="field"><label for="h_track">Trục SL (cm)</label><input id="h_track" type="number" name="h_track" value="<%= p.highlights.track || '' %>"></div>
+    </div>
+    <div class="row">
+      <% Object.entries(vi.features).forEach(([k, label]) => { %>
+        <label class="check"><input type="checkbox" name="features" value="<%= k %>"<%= (p.features || []).includes(k) ? ' checked' : '' %>> <%= label %></label>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Nội dung</h2>
+    <div class="field"><label for="summary_vi">Mô tả ngắn (tiếng Việt)</label><textarea id="summary_vi" name="summary_vi" style="font-family:inherit"><%= p.summary_vi %></textarea><div class="hint">Trang tiếng Nhật tự tạo mô tả ngắn từ phần "Điểm nổi bật".</div></div>
+    <div class="field"><label for="specs">Thông số kỹ thuật — mỗi dòng: <code>Tên: Giá trị</code></label><textarea id="specs" name="specs"><%= p.specs.map((s) => s.k + ': ' + s.v).join('\n') %></textarea></div>
+    <div class="field"><label for="body_vi">Bài mô tả chi tiết (HTML)</label><textarea id="body_vi" name="body_vi" style="min-height:280px"><%= p.body_vi %></textarea></div>
+  </div>
+
+  <div class="row between">
+    <button class="btn btn--kin" type="submit">Lưu sản phẩm</button>
+    <% if (!isNew) { %><a href="/vi/chair/<%= p.slug %>" target="_blank" rel="noopener">Xem trên website ↗</a><% } %>
+  </div>
+</form>
+<% if (!isNew) { %>
+  <form method="post" action="/admin/products/<%= p.slug %>/delete" style="margin-top:32px" data-confirm="Xoá vĩnh viễn sản phẩm này?">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn btn--danger" type="submit">Xoá sản phẩm</button>
+  </form>
+<% } %>
+<%- include('_bottom') %>
