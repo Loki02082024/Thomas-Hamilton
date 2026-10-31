@@ -52,7 +52,7 @@ Bài viết cũng có ô **Ảnh bìa** tương tự.
 ## Đẩy code lên GitHub
 
 ```bash
-git remote add origin https://github.com/<tai-khoan>/thomas-hamilton.git
+git remote add origin https://github.com/Loki02082024/Thomas-Hamilton.git
 git push -u origin main
 ```
 
@@ -64,7 +64,7 @@ git push -u origin main
 hPanel → **Websites** → chọn website → **Databases → MySQL Databases** → tạo database và user. Ghi lại *tên database, user, mật khẩu*. Host thường là `localhost`.
 
 ### 2. Tạo ứng dụng Node.js từ GitHub
-hPanel → **Websites → Add website → Node.js Apps** → **Import Git repository** → kết nối GitHub và chọn repo `thomas-hamilton`.
+hPanel → **Websites → Add website → Node.js Apps** → **Import Git repository** → kết nối GitHub và chọn repo `Loki02082024/Thomas-Hamilton`.
 
 Cấu hình build (tên các mục có thể hơi khác tuỳ phiên bản hPanel):
 
@@ -110,7 +110,7 @@ Mỗi lần `git push` lên nhánh `main`, Hostinger sẽ tự build lại (nế
 
 ### Phương án thay thế: VPS
 ```bash
-git clone https://github.com/<tai-khoan>/thomas-hamilton.git && cd thomas-hamilton
+git clone https://github.com/Loki02082024/Thomas-Hamilton.git && cd Thomas-Hamilton
 npm ci --omit=dev && cp .env.example .env && nano .env
 npm i -g pm2 && pm2 start server.js --name thomas-hamilton && pm2 save
 ```
