@@ -5,7 +5,11 @@ const path = require('path');
 const crypto = require('crypto');
 
 const SEED = path.join(__dirname, '..', 'data', 'products.tabu.json');
+// Products added after launch. Each one is inserted once per database (tracked by slug),
+// so deleting it later in Admin does not bring it back on the next restart.
+const EXTRA = path.join(__dirname, '..', 'data', 'products.extra.json');
 const now = () => new Date().toISOString();
+const extraProducts = () => (fs.existsSync(EXTRA) ? JSON.parse(fs.readFileSync(EXTRA, 'utf8')) : []);
 
 function seedProducts() {
   const list = JSON.parse(fs.readFileSync(SEED, 'utf8'));
@@ -47,7 +51,16 @@ function jsonDriver() {
 
   return {
     kind: 'json',
-    async init() { load(); await save(); },
+    async init() {
+      const d = load();
+      d.seeded = d.seeded || [];
+      for (const p of extraProducts()) {
+        if (d.seeded.includes(p.slug)) continue;
+        d.seeded.push(p.slug);
+        if (!d.products.some((x) => x.slug === p.slug)) d.products.push({ ...p, created_at: now() });
+      }
+      await save();
+    },
     products: {
       async list() { return [...load().products].sort((a, b) => a.sort - b.sort); },
       async get(slug) { return load().products.find((p) => p.slug === slug) || null; },
@@ -130,6 +143,14 @@ function mysqlDriver() {
           await q('INSERT INTO products (slug, sort, data) VALUES (?, ?, ?)', [p.slug, p.sort, JSON.stringify(p)]);
         }
         console.log('[db] seeded products');
+      }
+      await q('CREATE TABLE IF NOT EXISTS seeded (slug VARCHAR(160) PRIMARY KEY) DEFAULT CHARSET=utf8mb4');
+      for (const p of extraProducts()) {
+        const r = await q('INSERT IGNORE INTO seeded (slug) VALUES (?)', [p.slug]);
+        if (!r.affectedRows) continue;
+        const rec = { ...p, created_at: now() };
+        await q('INSERT IGNORE INTO products (slug, sort, data) VALUES (?, ?, ?)', [rec.slug, rec.sort, JSON.stringify(rec)]);
+        console.log('[db] added product', p.slug);
       }
     },
     products: {
