@@ -124,7 +124,10 @@ router.get('/:lang/order/:code', async (req, res, next) => {
   if (!myOrders(req).includes(req.params.code)) return next();
   const order = await db.orders.get(req.params.code);
   if (!order) return next();
-  res.render('pages/order', { title: `${res.locals.t.order.code} ${order.code}`, order, bank: bank(), vnpayOn: vnpay.enabled(), page: 'order' });
+  // Google Ads purchase conversion: once per order, and for VNPay only after it is paid.
+  const trackAds = !order.ads_tracked && (order.payment_method !== 'vnpay' || order.payment_status === 'paid');
+  if (trackAds) await db.orders.update(order.code, { ads_tracked: true });
+  res.render('pages/order', { title: `${res.locals.t.order.code} ${order.code}`, order, trackAds, bank: bank(), vnpayOn: vnpay.enabled(), page: 'order' });
 });
 
 router.post('/:lang/order/:code/pay', requireCsrf, async (req, res, next) => {

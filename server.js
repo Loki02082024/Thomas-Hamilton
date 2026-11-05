@@ -1,6 +1,7 @@
 require('dotenv').config({ quiet: true });
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
@@ -21,14 +22,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.disable('x-powered-by');
 
 const vnpayHost = new URL(process.env.VNPAY_URL || 'https://sandbox.vnpayment.vn').origin;
+// Google Ads tag (views/partials/google-ads.ejs): inline snippets run with a per-request nonce.
+const GOOGLE_ADS = ['https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net',
+  'https://ad.doubleclick.net', 'https://www.google.com', 'https://www.google.com.vn'];
+app.use((req, res, next) => { res.locals.cspNonce = crypto.randomBytes(16).toString('base64'); next(); });
 app.use(helmet({
   contentSecurityPolicy: {
     useDefaults: true,
     directives: {
-      'script-src': ["'self'"],
+      'script-src': ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`, ...GOOGLE_ADS],
+      'connect-src': ["'self'", ...GOOGLE_ADS, 'https://*.google-analytics.com', 'https://*.analytics.google.com'],
+      'frame-src': ['https://td.doubleclick.net', 'https://www.googletagmanager.com'],
       'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       'font-src': ["'self'", 'https://fonts.gstatic.com'],
-      'img-src': ["'self'", 'data:', 'blob:', 'https://img.vietqr.io'],
+      'img-src': ["'self'", 'data:', 'blob:', 'https://img.vietqr.io', ...GOOGLE_ADS],
       'form-action': ["'self'", vnpayHost],
       'upgrade-insecure-requests': PROD ? [] : null,
     },

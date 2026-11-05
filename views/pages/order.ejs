@@ -55,4 +55,5 @@
     </div>
   </section>
 </main>
+<% if (trackAds) { %><script nonce="<%= cspNonce %>">trackOrderSuccess(<%- JSON.stringify(order.code) %>, <%= Math.round(order.total) %>);</script><% } %>
 <%- include('../partials/footer') %>

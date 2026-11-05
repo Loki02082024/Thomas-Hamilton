@@ -1,0 +1,49 @@
+<%# Google Ads (AW-11473966896) — copied verbatim from ma-chuyen-doi-x300.html; nonce attributes added for the CSP. %>
+<!-- ===== PHẦN 1: Google tag (mọi trang) ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11473966896" nonce="<%= cspNonce %>"></script>
+<script nonce="<%= cspNonce %>">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-11473966896');
+</script>
+
+<!-- ===== PHẦN 2: Bấm gọi hotline + Bấm Zalo (mọi trang) ===== -->
+<script nonce="<%= cspNonce %>">
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a || typeof gtag !== 'function') return;
+    var href = (a.getAttribute('href') || '').toLowerCase();
+
+    // Bấm gọi hotline (chuyển đổi CHÍNH)
+    if (href.indexOf('tel:') === 0) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-11473966896/QxC4CL_b4rIdELCum98q',
+        'transport_type': 'beacon'
+      });
+    }
+
+    // Bấm Zalo (chuyển đổi PHỤ – chỉ để theo dõi)
+    if (href.indexOf('zalo.me') !== -1) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-11473966896/3TFMCMLb4rIdELCum98q',
+        'transport_type': 'beacon'
+      });
+    }
+  }, true);
+</script>
+
+<!-- ===== PHẦN 3: Đặt hàng thành công (chỉ gọi 1 lần / đơn) ===== -->
+<script nonce="<%= cspNonce %>">
+  // orderId: mã đơn hàng thật (để Google không đếm trùng khi khách tải lại trang)
+  // orderTotal: tổng tiền đơn (VND, số nguyên), ví dụ 3900000
+  function trackOrderSuccess(orderId, orderTotal) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'conversion', {
+      'send_to': 'AW-11473966896/phJ_CLzb4rIdELCum98q',
+      'value': orderTotal,
+      'currency': 'VND',
+      'transaction_id': String(orderId)
+    });
+  }
+</script>
