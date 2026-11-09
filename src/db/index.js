@@ -12,12 +12,16 @@ const now = () => new Date().toISOString();
 const extraProducts = () => (fs.existsSync(EXTRA) ? JSON.parse(fs.readFileSync(EXTRA, 'utf8')) : []);
 // One-time content edits to existing products, applied once per database (tracked as "patch:<id>").
 // set: fields to replace · variants: fields merged into every variant · specs: spec values by label
+// replace: [from, to] text pairs applied to body_vi and summary_vi
 const PATCHES = path.join(__dirname, '..', 'data', 'product-patches.json');
 const productPatches = () => (fs.existsSync(PATCHES) ? JSON.parse(fs.readFileSync(PATCHES, 'utf8')) : []);
-function applyPatch(p, { set = {}, variants, specs }) {
+function applyPatch(p, { set = {}, variants, specs, replace }) {
   const out = { ...p, ...set, updated_at: now() };
   if (variants) out.variants = (p.variants || []).map((v) => ({ ...v, ...variants }));
   if (specs) out.specs = (p.specs || []).map((s) => (s.k in specs ? { ...s, v: specs[s.k] } : s));
+  for (const [from, to] of replace || []) {
+    for (const k of ['body_vi', 'summary_vi']) if (out[k]) out[k] = out[k].split(from).join(to);
+  }
   return out;
 }
 

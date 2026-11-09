@@ -2,11 +2,11 @@
 module.exports = {
   brand: 'THOMAS HAMILTON',
   company: 'THOMAS HAMILTON',
-  hotline: '086.2279.789',
-  hotlineHref: 'tel:0862279789',
+  hotline: '0878.882.999',
+  hotlineHref: 'tel:0878882999',
   storeHotline: '(+84) 934 323 882',
   storeHotlineHref: 'tel:+84934323882',
-  zalo: 'https://zalo.me/0862279789',
+  zalo: 'https://zalo.me/0878882999',
   email: 'support@tabu.com.vn',
   headOffice: '14TT3 - KĐT Văn Phú - Phú La - Hà Đông - Hà Nội',
   social: {
