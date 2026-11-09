@@ -131,6 +131,7 @@ module.exports = function adminRouter({ uploadDir }) {
       name: String(b.name || '').trim().slice(0, 160),
       model: String(b.model || '').trim().slice(0, 80),
       brand: String(b.brand || '').trim().slice(0, 80),
+      badge_vi: String(b.badge_vi || '').trim().slice(0, 60),
       active: b.active === 'on', featured: b.featured === 'on', available: b.available === 'on',
       sort: int(b.sort),
       variants: variants.length ? variants : [{ name: '', price: int(b.price), compare: int(b.compare), available: true }],

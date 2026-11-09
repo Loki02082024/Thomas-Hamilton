@@ -10,6 +10,16 @@ const SEED = path.join(__dirname, '..', 'data', 'products.tabu.json');
 const EXTRA = path.join(__dirname, '..', 'data', 'products.extra.json');
 const now = () => new Date().toISOString();
 const extraProducts = () => (fs.existsSync(EXTRA) ? JSON.parse(fs.readFileSync(EXTRA, 'utf8')) : []);
+// One-time content edits to existing products, applied once per database (tracked as "patch:<id>").
+// set: fields to replace · variants: fields merged into every variant · specs: spec values by label
+const PATCHES = path.join(__dirname, '..', 'data', 'product-patches.json');
+const productPatches = () => (fs.existsSync(PATCHES) ? JSON.parse(fs.readFileSync(PATCHES, 'utf8')) : []);
+function applyPatch(p, { set = {}, variants, specs }) {
+  const out = { ...p, ...set, updated_at: now() };
+  if (variants) out.variants = (p.variants || []).map((v) => ({ ...v, ...variants }));
+  if (specs) out.specs = (p.specs || []).map((s) => (s.k in specs ? { ...s, v: specs[s.k] } : s));
+  return out;
+}
 
 function seedProducts() {
   const list = JSON.parse(fs.readFileSync(SEED, 'utf8'));
@@ -58,6 +68,13 @@ function jsonDriver() {
         if (d.seeded.includes(p.slug)) continue;
         d.seeded.push(p.slug);
         if (!d.products.some((x) => x.slug === p.slug)) d.products.push({ ...p, created_at: now() });
+      }
+      for (const patch of productPatches()) {
+        const key = 'patch:' + patch.id;
+        if (d.seeded.includes(key)) continue;
+        d.seeded.push(key);
+        const i = d.products.findIndex((x) => x.slug === patch.slug);
+        if (i >= 0) d.products[i] = applyPatch(d.products[i], patch);
       }
       await save();
     },
@@ -151,6 +168,14 @@ function mysqlDriver() {
         const rec = { ...p, created_at: now() };
         await q('INSERT IGNORE INTO products (slug, sort, data) VALUES (?, ?, ?)', [rec.slug, rec.sort, JSON.stringify(rec)]);
         console.log('[db] added product', p.slug);
+      }
+      for (const patch of productPatches()) {
+        const r = await q('INSERT IGNORE INTO seeded (slug) VALUES (?)', ['patch:' + patch.id]);
+        if (!r.affectedRows) continue;
+        const p = await this.products.get(patch.slug);
+        if (!p) continue;
+        await q('UPDATE products SET data = ? WHERE slug = ?', [JSON.stringify(applyPatch(p, patch)), patch.slug]);
+        console.log('[db] patched product', patch.slug, patch.id);
       }
     },
     products: {

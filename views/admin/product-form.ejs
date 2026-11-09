@@ -10,6 +10,7 @@
       <div class="field"><label for="name">Tên sản phẩm *</label><input id="name" type="text" name="name" value="<%= p.name %>" required></div>
       <div class="field"><label for="slug">Đường dẫn (slug)</label><input id="slug" type="text" name="slug" value="<%= p.slug %>"><div class="hint">Để trống sẽ tự tạo từ tên. URL: /vi/chair/<b><%= p.slug || '…' %></b></div></div>
       <div class="field"><label for="model">Model</label><input id="model" type="text" name="model" value="<%= p.model %>"></div>
+      <div class="field"><label for="badge_vi">Nhãn nổi bật</label><input id="badge_vi" type="text" name="badge_vi" value="<%= p.badge_vi || '' %>" maxlength="60" placeholder="VD: Hàng mới 100% · Nguyên đai nguyên kiện"></div>
       <div class="field"><label for="brand">Thương hiệu</label><input id="brand" type="text" name="brand" value="<%= p.brand %>"></div>
     </div>
     <div class="field">

@@ -132,6 +132,7 @@ module.exports = {
   common: {
     currency: '₫', from: '', backToTop: 'ページの先頭へ', notFound: 'お探しのページは見つかりませんでした。', home: 'ホームへ戻る',
     sale: '特別価格', learnMore: '詳しく見る', loading: '処理中…', error: 'エラーが発生しました。もう一度お試しください。', breadcrumb: 'パンくずリスト',
+    call: '電話する', zalo: 'Zaloで相談', contactDock: 'お問い合わせ',
   },
   specKeys: {
     'Bảo hành': '保証', 'Chương trình massage': 'マッサージプログラム', 'Chất liệu': '素材', 'Con lăn': 'ローラー',

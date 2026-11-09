@@ -64,6 +64,12 @@
 
 <div class="toast" role="status" aria-live="polite" data-toast><%- include('icon', { name: 'check' }) %><span></span></div>
 
+<%# Mobile only: call / Zalo always in reach (both are tracked as Google Ads conversions). %>
+<nav class="dock" aria-label="<%= t.common.contactDock %>">
+  <a class="dock__call" href="<%= site.hotlineHref %>"><%- include('icon', { name: 'phone' }) %><span><%= t.common.call %><small><%= site.hotline %></small></span></a>
+  <a class="dock__zalo" href="<%= site.zalo %>" target="_blank" rel="noopener"><%- include('icon', { name: 'chat' }) %><span><%= t.common.zalo %></span></a>
+</nav>
+
 <div class="shoji" data-shoji aria-hidden="true">
   <div class="shoji__panel shoji__panel--l"></div>
   <div class="shoji__panel shoji__panel--r"></div>

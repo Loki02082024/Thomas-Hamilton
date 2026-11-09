@@ -525,3 +525,25 @@ textarea.input { min-height: 132px; resize: vertical; }
 .shoji-in .shoji .shoji__seal { opacity: 1; transform: none; transition: none; }
 .shoji-in .shoji { animation: shoji-failsafe 0s linear 2.5s forwards; }
 @keyframes shoji-failsafe { to { visibility: hidden; } }
+
+/* ─── mobile contact dock (call / Zalo) ─── */
+.dock { display: none; }
+@media (max-width: 768px) {
+  .dock {
+    position: fixed; inset: auto 0 0; z-index: 55; display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: rgba(11, 10, 9, .94);
+    border-top: 1px solid var(--line); backdrop-filter: blur(8px);
+  }
+  .dock a { min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 4px; font: 600 15px/1.1 var(--f-body); }
+  .dock a span { display: flex; flex-direction: column; }
+  .dock small { font-weight: 400; font-size: 12px; opacity: .8; margin-top: 2px; letter-spacing: .04em; }
+  .dock__call { background: var(--kin); color: var(--sumi); }
+  .dock__zalo { background: #0068FF; color: #fff; }
+  .dock svg { width: 22px; height: 22px; flex: none; }
+  body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+}
+
+/* product label such as "Hàng mới 100%" */
+.pdp__badge { display: flex; width: fit-content; align-items: center; gap: 8px; margin: 14px 0 0; padding: 8px 14px; border: 1px solid var(--kin); color: var(--kin-2); font: 500 14px/1.2 var(--f-body); letter-spacing: .04em; }
+.pdp__badge svg { width: 18px; height: 18px; }
+.card__badge--new { background: var(--kin); color: var(--sumi); }

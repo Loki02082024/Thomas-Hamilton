@@ -132,6 +132,7 @@ module.exports = {
   common: {
     currency: '₫', from: 'Từ', backToTop: 'Lên đầu trang', notFound: 'Trang bạn tìm không tồn tại.', home: 'Về trang chủ',
     sale: 'Ưu đãi', learnMore: 'Xem chi tiết', loading: 'Đang xử lý…', error: 'Đã có lỗi xảy ra. Vui lòng thử lại.', breadcrumb: 'Đường dẫn',
+    call: 'Gọi ngay', zalo: 'Chat Zalo', contactDock: 'Liên hệ nhanh',
   },
   specKeys: {},
 };

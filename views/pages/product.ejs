@@ -43,6 +43,7 @@ const firstAvail = Math.max(0, p.variants.findIndex((v) => v.available !== false
 
       <div class="pdp__info">
         <span class="pdp__brand"><%= p.brand %> · <%= p.model %></span>
+        <% if (p.badge_vi && lang === 'vi') { %><p class="pdp__badge"><%- include('../partials/icon', { name: 'check' }) %><%= p.badge_vi %></p><% } %>
         <h1 class="pdp__title"><%= p.name %></h1>
         <p class="pdp__summary"><%= p.summary %></p>
         <% if (p.features && p.features.length) { %>

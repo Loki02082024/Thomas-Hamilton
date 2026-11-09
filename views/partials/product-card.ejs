@@ -1,6 +1,7 @@
 <article class="card" data-tilt>
   <div class="card__media">
     <% if (!p.available) { %><span class="card__badge card__badge--out"><%= t.product.outOfStock %></span>
+    <% } else if (p.badge_vi && lang === 'vi') { %><span class="card__badge card__badge--new"><%= p.badge_vi %></span>
     <% } else if (p.discount) { %><span class="card__badge">−<%= p.discount %>%</span><% } %>
     <span class="card__brand"><%= p.brand %></span>
     <img src="<%= p.images[0] %>" alt="<%= p.name %>" width="600" height="600" loading="lazy" decoding="async">
